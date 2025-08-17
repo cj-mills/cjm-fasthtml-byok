@@ -34,8 +34,8 @@ from IPython.display import display
 
 # %% ../../nbs/components/alerts.ipynb 6
 def InfoIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the info icon
     """Create an info icon SVG."""
     return Svg(
         Path(
@@ -47,12 +47,12 @@ def InfoIcon(
         xmlns="http://www.w3.org/2000/svg",
         fill="none",
         viewBox="0 0 24 24",
-        cls=combine_classes(stroke_dui.info, getattr(h, f"_{size}"), getattr(w, f"_{size}"), shrink._0)
+        cls=combine_classes(stroke_dui.info_content, h(size), w(size), shrink._0)
     )
 
 def SuccessIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the success icon
     """Create a success/check icon SVG."""
     return Svg(
         Path(
@@ -64,12 +64,12 @@ def SuccessIcon(
         xmlns="http://www.w3.org/2000/svg",
         fill="none",
         viewBox="0 0 24 24",
-        cls=combine_classes(stroke_dui.success, getattr(h, f"_{size}"), getattr(w, f"_{size}"), shrink._0)
+        cls=combine_classes(stroke_dui.success_content, h(size), w(size), shrink._0)
     )
 
 def WarningIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the warning icon
     """Create a warning/exclamation icon SVG."""
     return Svg(
         Path(
@@ -81,12 +81,12 @@ def WarningIcon(
         xmlns="http://www.w3.org/2000/svg",
         fill="none",
         viewBox="0 0 24 24",
-        cls=combine_classes(stroke_dui.warning, getattr(h, f"_{size}"), getattr(w, f"_{size}"), shrink._0)
+        cls=combine_classes(stroke_dui.warning_content, h(size), w(size), shrink._0)
     )
 
 def ErrorIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the error icon
     """Create an error/X icon SVG."""
     return Svg(
         Path(
@@ -98,7 +98,7 @@ def ErrorIcon(
         xmlns="http://www.w3.org/2000/svg",
         fill="none",
         viewBox="0 0 24 24",
-        cls=combine_classes(stroke_dui.error, getattr(h, f"_{size}"), getattr(w, f"_{size}"), shrink._0)
+        cls=combine_classes(stroke_dui.error_content, h(size), w(size), shrink._0)
     )
 
 # %% ../../nbs/components/alerts.ipynb 8
@@ -438,6 +438,6 @@ def AlertStack(
         cls=combine_classes(
             flex_display,
             "flex-col",
-            getattr(gap, f"_{spacing}")
+            gap(spacing)
         )
     )

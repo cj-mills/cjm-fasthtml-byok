@@ -20,8 +20,8 @@ def create_byok_beforeware(
 ):
     "Create a FastHTML beforeware handler for BYOK functionality."
     def handler(
-        req,  # TODO: Add type hint and description
-        sess  # TODO: Add type hint and description
+        req,  # FastHTML request object
+        sess  # Session object
     ):
         """
         FastHTML beforeware function.
@@ -39,16 +39,16 @@ def require_api_key(
 ):
     "Decorator that requires an API key to be present for a route."
     def decorator(
-        func  # TODO: Add type hint and description
+        func: Callable  # The route handler function to decorate
     ):
-        "TODO: Add function description"
+        "Decorator function that wraps the route handler"
         @wraps(func)
         def wrapper(
-            request,  # TODO: Add type hint and description
+            request: Any,  # FastHTML request object
             *args,
             **kwargs
         ):
-            "TODO: Add function description"
+            "Wrapper that checks for API key before calling the route handler"
             if 'byok' not in request.scope:
                 raise RuntimeError("BYOK beforeware not configured")
             
@@ -76,16 +76,16 @@ def require_any_api_key(
 ):
     "Decorator that requires at least one of the specified API keys."
     def decorator(
-        func  # TODO: Add type hint and description
+        func: Callable  # The route handler function to decorate
     ):
-        "TODO: Add function description"
+        "Decorator function that wraps the route handler"
         @wraps(func)
         def wrapper(
-            request,  # TODO: Add type hint and description
+            request: Any,  # FastHTML request object
             *args,
             **kwargs
         ):
-            "TODO: Add function description"
+            "Wrapper that checks for any API key before calling the route handler"
             if 'byok' not in request.scope:
                 raise RuntimeError("BYOK beforeware not configured")
             
@@ -121,17 +121,17 @@ class SecurityCheckBeforeware:
     
     def __init__(
         self,
-        require_https: bool = True,  # TODO: Add description
-        is_production: Optional[bool] = None  # TODO: Add description
+        require_https: bool = True,  # Whether to require HTTPS in production
+        is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)
     ):
-        "TODO: Add function description"
+        "Initialize security check beforeware with HTTPS requirements"
         self.require_https = require_https
         self.is_production = is_production
     
     def __call__(
         self,
-        request,  # TODO: Add type hint and description
-        session  # TODO: Add type hint and description
+        request: Any,  # FastHTML request object
+        session: Any  # Session object
     ):
         """
         Validate security environment on each request.
@@ -156,17 +156,17 @@ class CleanupBeforeware:
     
     def __init__(
         self,
-        byok_manager: BYOKManager,  # TODO: Add description
-        user_id_func: Optional[Callable] = None  # TODO: Add description
+        byok_manager: BYOKManager,  # The BYOK manager instance
+        user_id_func: Optional[Callable] = None  # Optional function to get user_id from request
     ):
-        "TODO: Add function description"
+        "Initialize cleanup beforeware with BYOK manager"
         self.byok = byok_manager
         self.user_id_func = user_id_func
     
     def __call__(
         self,
-        request,  # TODO: Add type hint and description
-        session  # TODO: Add type hint and description
+        request: Any,  # FastHTML request object
+        session: Any  # Session object
     ):
         """
         Clean up expired keys on each request.

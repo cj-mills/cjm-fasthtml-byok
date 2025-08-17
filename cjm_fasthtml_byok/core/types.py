@@ -32,7 +32,7 @@ class APIKey:
     @property
     def is_expired(
         self
-    ) -> bool:  # TODO: Add return description
+    ) -> bool:  # True if key has expired, False otherwise
         """Check if the key has expired"""
         if self.expires_at is None:
             return False
@@ -40,7 +40,7 @@ class APIKey:
     
     def to_dict(
         self
-    ) -> Dict[str, Any]:  # TODO: Add return description
+    ) -> Dict[str, Any]:  # Dictionary representation for serialization
         """Convert to dictionary for storage"""
         return {
             'provider': self.provider,
@@ -52,9 +52,9 @@ class APIKey:
     
     @classmethod
     def from_dict(
-        cls,  # TODO: Add type hint and description
-        data: Dict[str, Any]  # TODO: Add description
-    ) -> 'APIKey':  # TODO: Add return description
+        cls,  # The APIKey class
+        data: Dict[str, Any]  # Dictionary containing serialized key data
+    ) -> 'APIKey':  # Reconstructed APIKey instance
         """Create from dictionary"""
         return cls(
             provider=data['provider'],
@@ -71,42 +71,42 @@ class KeyStorage(Protocol):
     
     def store(
         self,
-        request: Any,  # TODO: Add description
-        key: APIKey  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        key: APIKey  # API key object to store
     ) -> None:
         """Store an API key"""
         ...
     
     def retrieve(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> Optional[APIKey]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name to retrieve key for
+        user_id: Optional[str] = None  # Optional user ID for database lookup
+    ) -> Optional[APIKey]:  # API key object if found, None otherwise
         """Retrieve an API key for a provider"""
         ...
     
     def delete(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name to delete key for
+        user_id: Optional[str] = None  # Optional user ID for database deletion
     ) -> None:
         """Delete an API key"""
         ...
     
     def list_providers(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> list[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object
+        user_id: Optional[str] = None  # Optional user ID for database lookup
+    ) -> list[str]:  # List of provider names with stored keys
         """List all stored providers"""
         ...
     
     def clear_all(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        user_id: Optional[str] = None  # Optional user ID for database clearing
     ) -> None:
         """Clear all stored keys"""
         ...

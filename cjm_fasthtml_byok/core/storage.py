@@ -25,23 +25,23 @@ class SessionStorage:
     
     def __init__(
         self,
-        config: BYOKConfig  # TODO: Add description
+        config: BYOKConfig  # BYOK configuration object
     ):
-        "TODO: Add function description"
+        "Initialize session storage with configuration"
         self.config = config
         self.prefix = config.session_key_prefix
     
     def _get_session_key(
         self,
-        provider: str  # TODO: Add description
-    ) -> str:  # TODO: Add return description
+        provider: str  # Provider name (e.g., 'openai', 'anthropic')
+    ) -> str:  # Prefixed session key for the provider
         """Generate session key for a provider"""
         return f"{self.prefix}{provider}"
     
     def store(
         self,
-        request: Any,  # TODO: Add description
-        key: APIKey  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        key: APIKey  # API key object to store
     ) -> None:
         """Store an API key in the session"""
         try:
@@ -52,10 +52,10 @@ class SessionStorage:
     
     def retrieve(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> Optional[APIKey]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object with session
+        provider: str,  # Provider name to retrieve key for
+        user_id: Optional[str] = None  # User ID (unused in session storage)
+    ) -> Optional[APIKey]:  # API key object if found and valid, None otherwise
         """Retrieve an API key from the session"""
         session_key = self._get_session_key(provider)
         
@@ -77,9 +77,9 @@ class SessionStorage:
     
     def delete(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        provider: str,  # Provider name to delete key for
+        user_id: Optional[str] = None  # User ID (unused in session storage)
     ) -> None:
         """Delete an API key from the session"""
         session_key = self._get_session_key(provider)
@@ -88,9 +88,9 @@ class SessionStorage:
     
     def list_providers(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> List[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object with session
+        user_id: Optional[str] = None  # User ID (unused in session storage)
+    ) -> List[str]:  # List of provider names with stored keys
         """List all providers with stored keys"""
         providers = []
         for key in request.session.keys():
@@ -101,8 +101,8 @@ class SessionStorage:
     
     def clear_all(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        user_id: Optional[str] = None  # User ID (unused in session storage)
     ) -> None:
         """Clear all API keys from the session"""
         keys_to_delete = [k for k in request.session.keys() if k.startswith(self.prefix)]
@@ -118,15 +118,11 @@ class DatabaseStorage:
     
     def __init__(
         self,
-        config: BYOKConfig,  # TODO: Add description
-        db_url: str = "sqlite:///byok_keys.db"  # TODO: Add description
+        config: BYOKConfig,  # BYOK configuration object
+        db_url: str = "sqlite:///byok_keys.db"  # Database URL (defaults to SQLite)
     ):
         """
         Initialize database storage with SQLAlchemy.
-        
-        Args:
-            config: BYOK configuration
-            db_url: Database URL (defaults to SQLite)
         """
         from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, select, delete
         from sqlalchemy.exc import SQLAlchemyError
@@ -152,8 +148,8 @@ class DatabaseStorage:
     
     def store(
         self,
-        request: Any,  # TODO: Add description
-        key: APIKey  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+        key: APIKey  # API key object to store in database
     ) -> None:
         """Store an API key in the database"""
         if not key.user_id:
@@ -195,10 +191,10 @@ class DatabaseStorage:
     
     def retrieve(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> Optional[APIKey]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+        provider: str,  # Provider name to retrieve key for
+        user_id: Optional[str] = None  # User ID to retrieve key for (required for database)
+    ) -> Optional[APIKey]:  # API key object if found and valid, None otherwise
         """Retrieve an API key from the database"""
         if not user_id:
             return None
@@ -236,9 +232,9 @@ class DatabaseStorage:
     
     def delete(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+        provider: str,  # Provider name to delete key for
+        user_id: Optional[str] = None  # User ID to delete key for (required for database)
     ) -> None:
         """Delete an API key from the database"""
         if not user_id:
@@ -258,9 +254,9 @@ class DatabaseStorage:
     
     def list_providers(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> List[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+        user_id: Optional[str] = None  # User ID to list providers for (required for database)
+    ) -> List[str]:  # List of provider names with stored keys
         """List all providers with stored keys for a user"""
         if not user_id:
             return []
@@ -279,8 +275,8 @@ class DatabaseStorage:
     
     def clear_all(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+        user_id: Optional[str] = None  # User ID to clear keys for (required for database)
     ) -> None:
         """Clear all API keys for a user"""
         if not user_id:
@@ -304,18 +300,18 @@ class HybridStorage:
     
     def __init__(
         self,
-        config: BYOKConfig,  # TODO: Add description
-        db_url: Optional[str] = None  # TODO: Add description
+        config: BYOKConfig,  # BYOK configuration object
+        db_url: Optional[str] = None  # Optional database URL for persistent storage
     ):
-        "TODO: Add function description"
+        "Initialize hybrid storage with session and optional database backends"
         self.config = config
         self.session_storage = SessionStorage(config)
         self.db_storage = DatabaseStorage(config, db_url) if db_url else None
     
     def store(
         self,
-        request: Any,  # TODO: Add description
-        key: APIKey  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        key: APIKey  # API key object to store
     ) -> None:
         """Store in both session and database"""
         # Always store in session for fast access
@@ -327,10 +323,10 @@ class HybridStorage:
     
     def retrieve(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> Optional[APIKey]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object with session
+        provider: str,  # Provider name to retrieve key for
+        user_id: Optional[str] = None  # User ID for database lookup
+    ) -> Optional[APIKey]:  # API key object if found, None otherwise
         """Retrieve from session first, then database"""
         # Try session first (fast)
         key = self.session_storage.retrieve(request, provider)
@@ -349,9 +345,9 @@ class HybridStorage:
     
     def delete(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        provider: str,  # Provider name to delete key for
+        user_id: Optional[str] = None  # User ID for database deletion
     ) -> None:
         """Delete from both storages"""
         self.session_storage.delete(request, provider)
@@ -360,9 +356,9 @@ class HybridStorage:
     
     def list_providers(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> List[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object with session
+        user_id: Optional[str] = None  # User ID for database lookup
+    ) -> List[str]:  # Combined list of providers from both storages
         """List providers from both storages"""
         providers = set(self.session_storage.list_providers(request))
         
@@ -373,8 +369,8 @@ class HybridStorage:
     
     def clear_all(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object with session
+        user_id: Optional[str] = None  # User ID for database clearing
     ) -> None:
         """Clear from both storages"""
         self.session_storage.clear_all(request)
@@ -390,17 +386,12 @@ class BYOKManager:
     
     def __init__(
         self,
-        secret_key: str,  # TODO: Add description
-        db_url: Optional[str] = None,  # TODO: Add description
-        config: Optional[BYOKConfig] = None  # TODO: Add description
+        secret_key: str,  # Application secret key for encryption
+        db_url: Optional[str] = None,  # Optional database URL for persistent storage (e.g., "sqlite:///keys.db")
+        config: Optional[BYOKConfig] = None  # Optional configuration (uses defaults if not provided)
     ):
         """
         Initialize the BYOK manager.
-        
-        Args:
-            secret_key: Application secret key for encryption
-            db_url: Optional database URL for persistent storage (e.g., "sqlite:///keys.db")
-            config: Optional configuration (uses defaults if not provided)
         """
         self.config = config or BYOKConfig()
         
@@ -419,21 +410,14 @@ class BYOKManager:
     
     def set_key(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        api_key: str,  # TODO: Add description
-        user_id: Optional[str] = None,  # TODO: Add description
-        ttl: Optional[timedelta] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name (e.g., 'openai', 'anthropic')
+        api_key: str,  # The API key to store
+        user_id: Optional[str] = None,  # Optional user ID for database storage
+        ttl: Optional[timedelta] = None  # Optional time-to-live for the key
     ) -> None:
         """
         Store an API key.
-        
-        Args:
-            request: FastHTML request object
-            provider: Provider name (e.g., 'openai', 'anthropic')
-            api_key: The API key to store
-            user_id: Optional user ID for database storage
-            ttl: Optional time-to-live for the key
         """
         # Encrypt the key
         encrypted = self.encryptor.encrypt(api_key)
@@ -457,20 +441,12 @@ class BYOKManager:
     
     def get_key(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> Optional[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name
+        user_id: Optional[str] = None  # Optional user ID for database lookup
+    ) -> Optional[str]:  # Decrypted API key or None if not found
         """
         Retrieve and decrypt an API key.
-        
-        Args:
-            request: FastHTML request object
-            provider: Provider name
-            user_id: Optional user ID for database lookup
-        
-        Returns:
-            Decrypted API key or None if not found
         """
         key = self.storage.retrieve(request, provider, user_id)
         if not key:
@@ -485,66 +461,42 @@ class BYOKManager:
     
     def delete_key(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name
+        user_id: Optional[str] = None  # Optional user ID
     ) -> None:
         """
         Delete an API key.
-        
-        Args:
-            request: FastHTML request object
-            provider: Provider name
-            user_id: Optional user ID
         """
         self.storage.delete(request, provider, user_id)
     
     def list_providers(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> List[str]:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object
+        user_id: Optional[str] = None  # Optional user ID
+    ) -> List[str]:  # List of provider names
         """
         List all providers with stored keys.
-        
-        Args:
-            request: FastHTML request object
-            user_id: Optional user ID
-        
-        Returns:
-            List of provider names
         """
         return self.storage.list_providers(request, user_id)
     
     def clear_keys(
         self,
-        request: Any,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
+        request: Any,  # FastHTML/Starlette request object
+        user_id: Optional[str] = None  # Optional user ID
     ) -> None:
         """
         Clear all stored API keys.
-        
-        Args:
-            request: FastHTML request object
-            user_id: Optional user ID
         """
         self.storage.clear_all(request, user_id)
     
     def has_key(
         self,
-        request: Any,  # TODO: Add description
-        provider: str,  # TODO: Add description
-        user_id: Optional[str] = None  # TODO: Add description
-    ) -> bool:  # TODO: Add return description
+        request: Any,  # FastHTML/Starlette request object
+        provider: str,  # Provider name
+        user_id: Optional[str] = None  # Optional user ID
+    ) -> bool:  # True if key exists, False otherwise
         """
         Check if a key exists for a provider.
-        
-        Args:
-            request: FastHTML request object
-            provider: Provider name
-            user_id: Optional user ID
-        
-        Returns:
-            True if key exists, False otherwise
         """
         return self.get_key(request, provider, user_id) is not None

@@ -56,7 +56,7 @@ class KeyEncryptor:
     
     def __init__(
         self,
-        encryption_key: Optional[bytes] = None  # TODO: Add description
+        encryption_key: Optional[bytes] = None  # Encryption key to use. If None, generates a new one
     ):
         """
         Initialize the encryptor.
@@ -69,8 +69,8 @@ class KeyEncryptor:
     
     def encrypt(
         self,
-        value: str  # TODO: Add description
-    ) -> bytes:  # TODO: Add return description
+        value: str  # Plain text API key to encrypt
+    ) -> bytes:  # Encrypted bytes
         """
         Encrypt an API key value.
         
@@ -90,8 +90,8 @@ class KeyEncryptor:
     
     def decrypt(
         self,
-        encrypted_value: bytes  # TODO: Add description
-    ) -> str:  # TODO: Add return description
+        encrypted_value: bytes  # Encrypted bytes to decrypt
+    ) -> str:  # Decrypted plain text API key
         """
         Decrypt an API key value.
         
@@ -113,9 +113,9 @@ class KeyEncryptor:
     
     def rotate_key(
         self,
-        new_key: bytes,  # TODO: Add description
-        encrypted_value: bytes  # TODO: Add description
-    ) -> bytes:  # TODO: Add return description
+        new_key: bytes,  # New encryption key to use
+        encrypted_value: bytes  # Value encrypted with current key
+    ) -> bytes:  # Value re-encrypted with new key
         """
         Re-encrypt a value with a new key.
         

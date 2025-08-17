@@ -41,10 +41,10 @@ graph LR
     components_forms --> utils_helpers
     components_forms --> core_security
     core_security --> core_types
-    core_storage --> core_security
     core_storage --> core_types
-    middleware_beforeware --> core_types
+    core_storage --> core_security
     middleware_beforeware --> core_security
+    middleware_beforeware --> core_types
     middleware_beforeware --> core_storage
     utils_helpers --> core_security
 ```
@@ -85,29 +85,29 @@ from cjm_fasthtml_byok.components.alerts import (
 
 ``` python
 def InfoIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the info icon
     "Create an info icon SVG."
 ```
 
 ``` python
 def SuccessIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the success icon
     "Create a success/check icon SVG."
 ```
 
 ``` python
 def WarningIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the warning icon
     "Create a warning/exclamation icon SVG."
 ```
 
 ``` python
 def ErrorIcon(
-    size: str = "6"  # TODO: Add description
-) -> Svg:  # TODO: Add return description
+    size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
+) -> Svg:  # SVG element for the error icon
     "Create an error/X icon SVG."
 ```
 
@@ -240,34 +240,34 @@ def setup_byok(
 class SecurityCheckBeforeware:
     def __init__(
         self,
-        require_https: bool = True,  # TODO: Add description
-        is_production: Optional[bool] = None  # TODO: Add description
+        require_https: bool = True,  # Whether to require HTTPS in production
+        is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)
     )
     "Beforeware that performs security checks."
     
     def __init__(
             self,
-            require_https: bool = True,  # TODO: Add description
-            is_production: Optional[bool] = None  # TODO: Add description
+            require_https: bool = True,  # Whether to require HTTPS in production
+            is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)
         )
-        "TODO: Add function description"
+        "Initialize security check beforeware with HTTPS requirements"
 ```
 
 ``` python
 class CleanupBeforeware:
     def __init__(
         self,
-        byok_manager: BYOKManager,  # TODO: Add description
-        user_id_func: Optional[Callable] = None  # TODO: Add description
+        byok_manager: BYOKManager,  # The BYOK manager instance
+        user_id_func: Optional[Callable] = None  # Optional function to get user_id from request
     )
     "Beforeware that cleans up expired keys."
     
     def __init__(
             self,
-            byok_manager: BYOKManager,  # TODO: Add description
-            user_id_func: Optional[Callable] = None  # TODO: Add description
+            byok_manager: BYOKManager,  # The BYOK manager instance
+            user_id_func: Optional[Callable] = None  # Optional function to get user_id from request
         )
-        "TODO: Add function description"
+        "Initialize cleanup beforeware with BYOK manager"
 ```
 
 ### Forms (`forms.ipynb`)
@@ -497,13 +497,13 @@ def get_key_fingerprint(
 class KeyEncryptor:
     def __init__(
         self,
-        encryption_key: Optional[bytes] = None  # TODO: Add description
+        encryption_key: Optional[bytes] = None  # Encryption key to use. If None, generates a new one
     )
     "Handles encryption and decryption of API keys."
     
     def __init__(
             self,
-            encryption_key: Optional[bytes] = None  # TODO: Add description
+            encryption_key: Optional[bytes] = None  # Encryption key to use. If None, generates a new one
         )
         "Initialize the encryptor.
 
@@ -512,8 +512,8 @@ Args:
     
     def encrypt(
             self,
-            value: str  # TODO: Add description
-        ) -> bytes:  # TODO: Add return description
+            value: str  # Plain text API key to encrypt
+        ) -> bytes:  # Encrypted bytes
         "Encrypt an API key value.
 
 Args:
@@ -527,8 +527,8 @@ Raises:
     
     def decrypt(
             self,
-            encrypted_value: bytes  # TODO: Add description
-        ) -> str:  # TODO: Add return description
+            encrypted_value: bytes  # Encrypted bytes to decrypt
+        ) -> str:  # Decrypted plain text API key
         "Decrypt an API key value.
 
 Args:
@@ -542,9 +542,9 @@ Raises:
     
     def rotate_key(
             self,
-            new_key: bytes,  # TODO: Add description
-            encrypted_value: bytes  # TODO: Add description
-        ) -> bytes:  # TODO: Add return description
+            new_key: bytes,  # New encryption key to use
+            encrypted_value: bytes  # Value encrypted with current key
+        ) -> bytes:  # Value re-encrypted with new key
         "Re-encrypt a value with a new key.
 
 Args:
@@ -576,7 +576,7 @@ from cjm_fasthtml_byok.core.storage import (
 class SessionStorage:
     def __init__(
         self,
-        config: BYOKConfig  # TODO: Add description
+        config: BYOKConfig  # BYOK configuration object
     )
     """
     Session-based storage for API keys.
@@ -585,44 +585,44 @@ class SessionStorage:
     
     def __init__(
             self,
-            config: BYOKConfig  # TODO: Add description
+            config: BYOKConfig  # BYOK configuration object
         )
-        "TODO: Add function description"
+        "Initialize session storage with configuration"
     
     def store(
             self,
-            request: Any,  # TODO: Add description
-            key: APIKey  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            key: APIKey  # API key object to store
         ) -> None
         "Store an API key in the session"
     
     def retrieve(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> Optional[APIKey]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object with session
+            provider: str,  # Provider name to retrieve key for
+            user_id: Optional[str] = None  # User ID (unused in session storage)
+        ) -> Optional[APIKey]:  # API key object if found and valid, None otherwise
         "Retrieve an API key from the session"
     
     def delete(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            provider: str,  # Provider name to delete key for
+            user_id: Optional[str] = None  # User ID (unused in session storage)
         ) -> None
         "Delete an API key from the session"
     
     def list_providers(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> List[str]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object with session
+            user_id: Optional[str] = None  # User ID (unused in session storage)
+        ) -> List[str]:  # List of provider names with stored keys
         "List all providers with stored keys"
     
     def clear_all(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            user_id: Optional[str] = None  # User ID (unused in session storage)
         ) -> None
         "Clear all API keys from the session"
 ```
@@ -631,8 +631,8 @@ class SessionStorage:
 class DatabaseStorage:
     def __init__(
         self,
-        config: BYOKConfig,  # TODO: Add description
-        db_url: str = "sqlite:///byok_keys.db"  # TODO: Add description
+        config: BYOKConfig,  # BYOK configuration object
+        db_url: str = "sqlite:///byok_keys.db"  # Database URL (defaults to SQLite)
     )
     """
     Database-backed storage for API keys using SQLAlchemy 2.0+.
@@ -641,49 +641,45 @@ class DatabaseStorage:
     
     def __init__(
             self,
-            config: BYOKConfig,  # TODO: Add description
-            db_url: str = "sqlite:///byok_keys.db"  # TODO: Add description
+            config: BYOKConfig,  # BYOK configuration object
+            db_url: str = "sqlite:///byok_keys.db"  # Database URL (defaults to SQLite)
         )
-        "Initialize database storage with SQLAlchemy.
-
-Args:
-    config: BYOK configuration
-    db_url: Database URL (defaults to SQLite)"
+        "Initialize database storage with SQLAlchemy."
     
     def store(
             self,
-            request: Any,  # TODO: Add description
-            key: APIKey  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+            key: APIKey  # API key object to store in database
         ) -> None
         "Store an API key in the database"
     
     def retrieve(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> Optional[APIKey]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+            provider: str,  # Provider name to retrieve key for
+            user_id: Optional[str] = None  # User ID to retrieve key for (required for database)
+        ) -> Optional[APIKey]:  # API key object if found and valid, None otherwise
         "Retrieve an API key from the database"
     
     def delete(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+            provider: str,  # Provider name to delete key for
+            user_id: Optional[str] = None  # User ID to delete key for (required for database)
         ) -> None
         "Delete an API key from the database"
     
     def list_providers(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> List[str]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+            user_id: Optional[str] = None  # User ID to list providers for (required for database)
+        ) -> List[str]:  # List of provider names with stored keys
         "List all providers with stored keys for a user"
     
     def clear_all(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)
+            user_id: Optional[str] = None  # User ID to clear keys for (required for database)
         ) -> None
         "Clear all API keys for a user"
 ```
@@ -692,8 +688,8 @@ Args:
 class HybridStorage:
     def __init__(
         self,
-        config: BYOKConfig,  # TODO: Add description
-        db_url: Optional[str] = None  # TODO: Add description
+        config: BYOKConfig,  # BYOK configuration object
+        db_url: Optional[str] = None  # Optional database URL for persistent storage
     )
     """
     Hybrid storage using both session and database.
@@ -702,45 +698,45 @@ class HybridStorage:
     
     def __init__(
             self,
-            config: BYOKConfig,  # TODO: Add description
-            db_url: Optional[str] = None  # TODO: Add description
+            config: BYOKConfig,  # BYOK configuration object
+            db_url: Optional[str] = None  # Optional database URL for persistent storage
         )
-        "TODO: Add function description"
+        "Initialize hybrid storage with session and optional database backends"
     
     def store(
             self,
-            request: Any,  # TODO: Add description
-            key: APIKey  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            key: APIKey  # API key object to store
         ) -> None
         "Store in both session and database"
     
     def retrieve(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> Optional[APIKey]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object with session
+            provider: str,  # Provider name to retrieve key for
+            user_id: Optional[str] = None  # User ID for database lookup
+        ) -> Optional[APIKey]:  # API key object if found, None otherwise
         "Retrieve from session first, then database"
     
     def delete(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            provider: str,  # Provider name to delete key for
+            user_id: Optional[str] = None  # User ID for database deletion
         ) -> None
         "Delete from both storages"
     
     def list_providers(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> List[str]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object with session
+            user_id: Optional[str] = None  # User ID for database lookup
+        ) -> List[str]:  # Combined list of providers from both storages
         "List providers from both storages"
     
     def clear_all(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object with session
+            user_id: Optional[str] = None  # User ID for database clearing
         ) -> None
         "Clear from both storages"
 ```
@@ -749,9 +745,9 @@ class HybridStorage:
 class BYOKManager:
     def __init__(
         self,
-        secret_key: str,  # TODO: Add description
-        db_url: Optional[str] = None,  # TODO: Add description
-        config: Optional[BYOKConfig] = None  # TODO: Add description
+        secret_key: str,  # Application secret key for encryption
+        db_url: Optional[str] = None,  # Optional database URL for persistent storage (e.g., "sqlite:///keys.db")
+        config: Optional[BYOKConfig] = None  # Optional configuration (uses defaults if not provided)
     )
     """
     Main manager for the BYOK system.
@@ -760,103 +756,59 @@ class BYOKManager:
     
     def __init__(
             self,
-            secret_key: str,  # TODO: Add description
-            db_url: Optional[str] = None,  # TODO: Add description
-            config: Optional[BYOKConfig] = None  # TODO: Add description
+            secret_key: str,  # Application secret key for encryption
+            db_url: Optional[str] = None,  # Optional database URL for persistent storage (e.g., "sqlite:///keys.db")
+            config: Optional[BYOKConfig] = None  # Optional configuration (uses defaults if not provided)
         )
-        "Initialize the BYOK manager.
-
-Args:
-    secret_key: Application secret key for encryption
-    db_url: Optional database URL for persistent storage (e.g., "sqlite:///keys.db")
-    config: Optional configuration (uses defaults if not provided)"
+        "Initialize the BYOK manager."
     
     def set_key(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            api_key: str,  # TODO: Add description
-            user_id: Optional[str] = None,  # TODO: Add description
-            ttl: Optional[timedelta] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name (e.g., 'openai', 'anthropic')
+            api_key: str,  # The API key to store
+            user_id: Optional[str] = None,  # Optional user ID for database storage
+            ttl: Optional[timedelta] = None  # Optional time-to-live for the key
         ) -> None
-        "Store an API key.
-
-Args:
-    request: FastHTML request object
-    provider: Provider name (e.g., 'openai', 'anthropic')
-    api_key: The API key to store
-    user_id: Optional user ID for database storage
-    ttl: Optional time-to-live for the key"
+        "Store an API key."
     
     def get_key(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> Optional[str]:  # TODO: Add return description
-        "Retrieve and decrypt an API key.
-
-Args:
-    request: FastHTML request object
-    provider: Provider name
-    user_id: Optional user ID for database lookup
-
-Returns:
-    Decrypted API key or None if not found"
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name
+            user_id: Optional[str] = None  # Optional user ID for database lookup
+        ) -> Optional[str]:  # Decrypted API key or None if not found
+        "Retrieve and decrypt an API key."
     
     def delete_key(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name
+            user_id: Optional[str] = None  # Optional user ID
         ) -> None
-        "Delete an API key.
-
-Args:
-    request: FastHTML request object
-    provider: Provider name
-    user_id: Optional user ID"
+        "Delete an API key."
     
     def list_providers(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> List[str]:  # TODO: Add return description
-        "List all providers with stored keys.
-
-Args:
-    request: FastHTML request object
-    user_id: Optional user ID
-
-Returns:
-    List of provider names"
+            request: Any,  # FastHTML/Starlette request object
+            user_id: Optional[str] = None  # Optional user ID
+        ) -> List[str]:  # List of provider names
+        "List all providers with stored keys."
     
     def clear_keys(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            user_id: Optional[str] = None  # Optional user ID
         ) -> None
-        "Clear all stored API keys.
-
-Args:
-    request: FastHTML request object
-    user_id: Optional user ID"
+        "Clear all stored API keys."
     
     def has_key(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> bool:  # TODO: Add return description
-        "Check if a key exists for a provider.
-
-Args:
-    request: FastHTML request object
-    provider: Provider name
-    user_id: Optional user ID
-
-Returns:
-    True if key exists, False otherwise"
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name
+            user_id: Optional[str] = None  # Optional user ID
+        ) -> bool:  # True if key exists, False otherwise
+        "Check if a key exists for a provider."
 ```
 
 ### Types (`types.ipynb`)
@@ -900,18 +852,18 @@ class APIKey:
     
     def is_expired(
             self
-        ) -> bool:  # TODO: Add return description
+        ) -> bool:  # True if key has expired, False otherwise
         "Check if the key has expired"
     
     def to_dict(
             self
-        ) -> Dict[str, Any]:  # TODO: Add return description
+        ) -> Dict[str, Any]:  # Dictionary representation for serialization
         "Convert to dictionary for storage"
     
     def from_dict(
-            cls,  # TODO: Add type hint and description
-            data: Dict[str, Any]  # TODO: Add description
-        ) -> 'APIKey':  # TODO: Add return description
+            cls,  # The APIKey class
+            data: Dict[str, Any]  # Dictionary containing serialized key data
+        ) -> 'APIKey':  # Reconstructed APIKey instance
         "Create from dictionary"
 ```
 
@@ -922,38 +874,38 @@ class KeyStorage(Protocol):
     
     def store(
             self,
-            request: Any,  # TODO: Add description
-            key: APIKey  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            key: APIKey  # API key object to store
         ) -> None
         "Store an API key"
     
     def retrieve(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> Optional[APIKey]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name to retrieve key for
+            user_id: Optional[str] = None  # Optional user ID for database lookup
+        ) -> Optional[APIKey]:  # API key object if found, None otherwise
         "Retrieve an API key for a provider"
     
     def delete(
             self,
-            request: Any,  # TODO: Add description
-            provider: str,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            provider: str,  # Provider name to delete key for
+            user_id: Optional[str] = None  # Optional user ID for database deletion
         ) -> None
         "Delete an API key"
     
     def list_providers(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
-        ) -> list[str]:  # TODO: Add return description
+            request: Any,  # FastHTML/Starlette request object
+            user_id: Optional[str] = None  # Optional user ID for database lookup
+        ) -> list[str]:  # List of provider names with stored keys
         "List all stored providers"
     
     def clear_all(
             self,
-            request: Any,  # TODO: Add description
-            user_id: Optional[str] = None  # TODO: Add description
+            request: Any,  # FastHTML/Starlette request object
+            user_id: Optional[str] = None  # Optional user ID for database clearing
         ) -> None
         "Clear all stored keys"
 ```
