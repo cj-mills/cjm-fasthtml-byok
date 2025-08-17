@@ -38,11 +38,11 @@ graph LR
     middleware_beforeware[middleware.beforeware<br/>Beforeware]
     utils_helpers[utils.helpers<br/>Helpers]
 
-    components_forms --> utils_helpers
     components_forms --> core_security
+    components_forms --> utils_helpers
     core_security --> core_types
-    core_storage --> core_types
     core_storage --> core_security
+    core_storage --> core_types
     middleware_beforeware --> core_security
     middleware_beforeware --> core_types
     middleware_beforeware --> core_storage
@@ -297,7 +297,7 @@ def KeyInputForm(
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
     extra_fields: Optional[List[tuple]] = None  # Additional form fields as [(name, type, placeholder, required), ...]
 ) -> Form:  # FastHTML Form component
-    "Create a form for inputting an API key."
+    "Create a form for inputting an API key with improved design."
 ```
 
 ``` python
@@ -307,7 +307,7 @@ def MultiProviderKeyForm(
     method: str = "post",  # HTTP method
     default_provider: Optional[str] = None  # Initially selected provider
 ) -> Form:  # FastHTML Form component with provider selection
-    "Create a form that allows selecting from multiple providers."
+    "Create a form that allows selecting from multiple providers with enhanced UX."
 ```
 
 ``` python
@@ -320,7 +320,7 @@ def KeyManagementCard(
     delete_action: Optional[str] = None,  # URL for delete action
     update_action: Optional[str] = None  # URL for update action
 ) -> Div:  # Card component for key management
-    "Create a card component for managing a stored API key."
+    "Create a card component for managing a stored API key with enhanced design."
 ```
 
 ``` python
@@ -331,7 +331,7 @@ def KeyManagerDashboard(
     user_id: Optional[str] = None,  # Optional user ID for database storage
     base_url: str = "/api/keys"  # Base URL for API endpoints
 ) -> Div:  # Dashboard component with all provider cards
-    "Create a complete dashboard for managing multiple API keys."
+    "Create a complete dashboard for managing multiple API keys with improved layout."
 ```
 
 ``` python
@@ -341,7 +341,7 @@ def InlineKeyInput(
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
     compact: bool = True  # Whether to use compact styling
 ) -> Div:  # Inline input component
-    "Create a compact inline key input component."
+    "Create a compact inline key input component with polished design."
 ```
 
 ### Helpers (`helpers.ipynb`)

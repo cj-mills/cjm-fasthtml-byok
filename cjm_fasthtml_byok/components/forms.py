@@ -10,17 +10,22 @@ from typing import Optional, List, Dict, Any, Callable
 from fasthtml.common import Form, Div, Input, Label, Button, Span, P, Select, Option, Details, Summary
 
 # daisyUI imports
-from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors
+from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors, text_input_sizes
 from cjm_fasthtml_daisyui.components.data_input.fieldset import fieldset, label as fieldset_label
-from cjm_fasthtml_daisyui.components.data_input.select import select, select_colors
-from cjm_fasthtml_daisyui.components.actions.button import btn, btn_colors, btn_sizes
+from cjm_fasthtml_daisyui.components.data_input.select import select, select_colors, select_sizes
+from cjm_fasthtml_daisyui.components.actions.button import btn, btn_colors, btn_sizes, btn_modifiers
 from cjm_fasthtml_daisyui.components.feedback.alert import alert, alert_colors
 from cjm_fasthtml_daisyui.components.data_display.card import card, card_body, card_title, card_actions
+from cjm_fasthtml_daisyui.utilities.semantic_colors import bg_dui, text_dui, border_dui, ring_dui
 
 # Tailwind imports
-from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, flex_display, flex_direction, grow
+from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, flex_display, flex_direction, grow, items, justify
 from cjm_fasthtml_tailwind.utilities.spacing import space, m, p
-from cjm_fasthtml_tailwind.utilities.sizing import w
+from cjm_fasthtml_tailwind.utilities.sizing import w, max_w, min_w
+from cjm_fasthtml_tailwind.utilities.typography import font_size, font_weight, leading, font_family
+from cjm_fasthtml_tailwind.utilities.effects import shadow, ring
+from cjm_fasthtml_tailwind.utilities.borders import rounded, border
+from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration
 from cjm_fasthtml_tailwind.core.base import combine_classes
 
 from ..utils.helpers import get_provider_info, format_provider_name
@@ -42,60 +47,105 @@ def KeyInputForm(
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
     extra_fields: Optional[List[tuple]] = None  # Additional form fields as [(name, type, placeholder, required), ...]
 ) -> Form:  # FastHTML Form component
-    "Create a form for inputting an API key."
+    "Create a form for inputting an API key with improved design."
     provider_info = get_provider_info(provider)
     placeholder = custom_placeholder or provider_info['placeholder']
     action_url = action or f"/api/keys/{provider}"
     
     form_fields = []
     
-    # Main API key field
+    # Main API key field with better visual hierarchy
     form_fields.append(
         Div(
             Label(
-                Span(f"{provider_info['name']} API Key"),
+                Span(
+                    f"{provider_info['name']} API Key",
+                    cls=combine_classes(
+                        font_weight.medium,
+                        text_dui.base_content  # Semantic color for label
+                    )
+                ),
                 Input(
                     type="password",
                     name="api_key",
                     placeholder=placeholder,
-                    cls=combine_classes(text_input, w.full),
+                    cls=combine_classes(
+                        text_input,
+                        text_input_sizes.md,  # Consistent sizing
+                        w.full,
+                        bg_dui.base_100,  # Theme-aware background
+                        transition.all,  # Smooth transitions
+                        duration._200,
+                        text_input.focus,  # Focus state
+                        ring(2).focus,  # Focus ring
+                        ring_dui.primary.opacity(50).focus  # Primary color focus ring
+                    ),
                     required=True,
                     autocomplete="off"
-                )
+                ),
+                cls=combine_classes(flex_display, flex_direction.col, gap(2))
             ),
             P(
                 "Your API key will be encrypted and stored securely" if show_help else "",
-                cls=str(fieldset_label) if show_help else None
+                cls=combine_classes(
+                    font_size.sm,
+                    text_dui.base_content.opacity(60),  # Semantic color with opacity
+                    m.t(1)
+                ) if show_help else None
             ) if show_help else None,
-            cls=str(fieldset)
+            cls=combine_classes(space.y(2))  # Better spacing
         )
     )
     
-    # Add extra fields if provided
+    # Add extra fields if provided with consistent styling
     if extra_fields:
         for field_name, field_type, field_placeholder, field_required in extra_fields:
             form_fields.append(
                 Div(
                     Label(
-                        Span(field_name.replace('_', ' ').title()),
+                        Span(
+                            field_name.replace('_', ' ').title(),
+                            cls=combine_classes(
+                                font_weight.medium,
+                                text_dui.base_content
+                            )
+                        ),
                         Input(
                             type=field_type,
                             name=field_name,
                             placeholder=field_placeholder,
-                            cls=combine_classes(text_input, w.full),
+                            cls=combine_classes(
+                                text_input,
+                                text_input_sizes.md,
+                                w.full,
+                                bg_dui.base_100,
+                                transition.all,
+                                duration._200
+                            ),
                             required=field_required
-                        )
+                        ),
+                        cls=combine_classes(flex_display, flex_direction.col, gap(2))
                     ),
-                    cls=str(fieldset)
+                    cls=combine_classes(space.y(2))
                 )
             )
     
-    # Add submit button
+    # Enhanced submit button with better visual weight
     form_fields.append(
         Button(
             "Save Key",
             type="submit",
-            cls=combine_classes(btn, btn_colors.primary)
+            cls=combine_classes(
+                btn,
+                btn_colors.primary,
+                btn_sizes.md,  # Consistent size
+                w.full,  # Full width for better mobile experience
+                shadow.md,  # Add depth
+                transition.all,
+                duration._200,
+                shadow.lg.hover,  # Elevate on hover
+                m.t(4)  # More spacing before button
+            )
         )
     )
     
@@ -103,7 +153,13 @@ def KeyInputForm(
         *form_fields,
         method=method,
         action=action_url,
-        cls=combine_classes(flex_display, flex_direction.col, gap._4)
+        cls=combine_classes(
+            flex_display,
+            flex_direction.col,
+            gap(6),  # More generous spacing
+            max_w.md,  # Constrain width for better readability
+            w.full
+        )
     )
 
 # %% ../../nbs/components/forms.ipynb 9
@@ -113,15 +169,23 @@ def MultiProviderKeyForm(
     method: str = "post",  # HTTP method
     default_provider: Optional[str] = None  # Initially selected provider
 ) -> Form:  # FastHTML Form component with provider selection
-    "Create a form that allows selecting from multiple providers."
+    "Create a form that allows selecting from multiple providers with enhanced UX."
     default = default_provider or (providers[0] if providers else None)
     
     return Form(
+        # Card-like container for better visual grouping
         Div(
-            # Provider selection
+            # Provider selection with improved styling
             Div(
                 Label(
-                    Span("Select Provider"),
+                    Span(
+                        "Select Provider",
+                        cls=combine_classes(
+                            font_weight.medium,
+                            text_dui.base_content,
+                            font_size.sm  # Slightly smaller for hierarchy
+                        )
+                    ),
                     Select(
                         *[
                             Option(
@@ -132,41 +196,103 @@ def MultiProviderKeyForm(
                             for p in providers
                         ],
                         name="provider",
-                        cls=combine_classes(select, w.full),
+                        cls=combine_classes(
+                            select,
+                            select_sizes.md,  # Consistent sizing
+                            w.full,
+                            bg_dui.base_100,
+                            border_dui.base_300,  # Subtle border
+                            transition.all,
+                            duration._200,
+                            ring(2).focus,
+                            ring_dui.primary.opacity(50).focus
+                        ),
                         required=True,
                         id="provider-select",
                         onchange="updatePlaceholder(this)"
-                    )
-                ),
-                cls=str(fieldset)
+                    ),
+                    cls=combine_classes(flex_display, flex_direction.col, gap(2))
+                )
             ),
-            # API key input
+            
+            # API key input with enhanced design
             Div(
                 Label(
-                    Span("API Key"),
+                    Span(
+                        "API Key",
+                        cls=combine_classes(
+                            font_weight.medium,
+                            text_dui.base_content,
+                            font_size.sm
+                        )
+                    ),
                     Input(
                         type="password",
                         name="api_key",
-                        placeholder=get_provider_info(default)['placeholder'] if default else "Your API key",
-                        cls=combine_classes(text_input, w.full),
+                        placeholder=get_provider_info(default)['placeholder'] if default else "Enter your API key",
+                        cls=combine_classes(
+                            text_input,
+                            text_input_sizes.md,
+                            w.full,
+                            bg_dui.base_100,
+                            transition.all,
+                            duration._200,
+                            ring(2).focus,
+                            ring_dui.primary.opacity(50).focus
+                        ),
                         required=True,
                         id="api-key-input",
                         autocomplete="off"
-                    )
+                    ),
+                    cls=combine_classes(flex_display, flex_direction.col, gap(2))
                 ),
-                P("Your API key will be encrypted and stored securely", cls=str(fieldset_label)),
-                cls=str(fieldset)
+                P(
+                    "Your API key will be encrypted and stored securely",
+                    cls=combine_classes(
+                        font_size.sm,
+                        text_dui.base_content.opacity(60),
+                        m.t(1)
+                    )
+                )
             ),
-            cls=combine_classes(flex_display, flex_direction.col, gap._4)
+            cls=combine_classes(
+                flex_display,
+                flex_direction.col,
+                gap(6),
+                p(6),  # Internal padding
+                bg_dui.base_200,  # Subtle background
+                rounded.lg,  # Rounded corners
+                border,
+                border_dui.base_300  # Subtle border
+            )
         ),
+        
+        # Submit button with better prominence
         Button(
             "Save Key",
             type="submit",
-            cls=combine_classes(btn, btn_colors.primary, w.full)
+            cls=combine_classes(
+                btn,
+                btn_colors.primary,
+                btn_sizes.md,
+                w.full,
+                shadow.md,
+                transition.all,
+                duration._200,
+                shadow.lg.hover,
+                m.t(2)  # Spacing from form
+            )
         ),
+        
         method=method,
         action=action,
-        cls=combine_classes(flex_display, flex_direction.col, gap._4)
+        cls=combine_classes(
+            flex_display,
+            flex_direction.col,
+            gap(4),
+            max_w.lg,  # Wider for provider selection
+            w.full
+        )
     )
 
 # %% ../../nbs/components/forms.ipynb 12
@@ -179,60 +305,114 @@ def KeyManagementCard(
     delete_action: Optional[str] = None,  # URL for delete action
     update_action: Optional[str] = None  # URL for update action
 ) -> Div:  # Card component for key management
-    "Create a card component for managing a stored API key."
+    "Create a card component for managing a stored API key with enhanced design."
     provider_info = get_provider_info(provider)
     
     card_content = []
     
-    # Title
+    # Enhanced title with better typography
     card_content.append(
         Div(
             provider_info['name'],
-            cls=str(card_title)
+            cls=combine_classes(
+                card_title,
+                text_dui.base_content,
+                font_size.lg,  # Slightly smaller for card context
+                font_weight.semibold
+            )
         )
     )
     
     if has_key:
-        # Show key info
+        # Key info with better visual hierarchy
         if masked_key:
             card_content.append(
                 P(
-                    Span("Current Key: "),
-                    Span(masked_key, cls="font-mono")
+                    Span("Current Key: ", cls=combine_classes(
+                        text_dui.base_content.opacity(70),
+                        font_size.sm
+                    )),
+                    Span(
+                        masked_key,
+                        cls=combine_classes(
+                            font_family.mono,
+                            text_dui.primary,  # Use primary color for key
+                            font_size.sm,
+                            bg_dui.base_200,  # Subtle background
+                            p.x(2),
+                            p.y(1),
+                            rounded.md
+                        )
+                    )
                 )
             )
         
+        # Metadata with consistent styling
         if created_at:
             card_content.append(
-                P(f"Added: {created_at}", cls="text-sm opacity-70")
+                P(
+                    f"Added: {created_at}",
+                    cls=combine_classes(
+                        font_size.sm,
+                        text_dui.base_content.opacity(60)
+                    )
+                )
             )
         
         if expires_at:
             card_content.append(
-                P(f"Expires: {expires_at}", cls="text-sm opacity-70")
+                P(
+                    f"Expires: {expires_at}",
+                    cls=combine_classes(
+                        font_size.sm,
+                        text_dui.warning,  # Warning color for expiration
+                        font_weight.medium
+                    )
+                )
             )
         
-        # Action buttons
+        # Enhanced action buttons
         actions = []
         
         if update_action:
             actions.append(
                 Form(
-                    Input(
-                        type="password",
-                        name="api_key",
-                        placeholder=provider_info['placeholder'],
-                        cls=str(text_input),
-                        required=True
-                    ),
-                    Button(
-                        "Update",
-                        type="submit",
-                        cls=combine_classes(btn, btn_colors.primary, btn_sizes.sm)
+                    Div(
+                        Input(
+                            type="password",
+                            name="api_key",
+                            placeholder=provider_info['placeholder'],
+                            cls=combine_classes(
+                                text_input,
+                                text_input_sizes.sm,
+                                w.full,  # Full width within container
+                                transition.all,
+                                duration._200
+                            ),
+                            required=True
+                        ),
+                        Button(
+                            "Update",
+                            type="submit",
+                            cls=combine_classes(
+                                btn,
+                                btn_colors.primary,
+                                btn_sizes.sm,
+                                transition.all,
+                                duration._200
+                            )
+                        ),
+                        cls=combine_classes(
+                            flex_display, 
+                            gap(2), 
+                            items.end,
+                            w.full,  # Container takes full width
+                            max_w(300)  # But limit maximum width
+                        )
                     ),
                     method="post",
                     action=update_action,
-                    cls=combine_classes(flex_display, gap._2)
+                    cls=str(w.full)  # Form takes full width of its container
                 )
             )
         
@@ -242,7 +422,15 @@ def KeyManagementCard(
                     Button(
                         "Delete",
                         type="submit",
-                        cls=combine_classes(btn, btn_colors.error, btn_sizes.sm),
+                        cls=combine_classes(
+                            btn,
+                            btn_colors.error,
+                            btn_sizes.sm,
+                            transition.all,
+                            duration._200,
+                            bg_dui.error.hover,  # Fill on hover
+                            text_dui.error_content.hover
+                        ),
                         onclick="return confirm('Are you sure you want to delete this key?');"
                     ),
                     method="post",
@@ -254,31 +442,54 @@ def KeyManagementCard(
             card_content.append(
                 Div(
                     *actions,
-                    cls=str(card_actions)
+                    cls=combine_classes(
+                        card_actions,
+                        justify.between,  # Space between actions
+                        flex_direction.col.sm,  # Stack on mobile
+                        flex_direction.row.md,  # Row on desktop
+                        gap(2),
+                        w.full  # Ensure full width
+                    )
                 )
             )
     else:
-        # No key stored
+        # No key state with better messaging
         card_content.append(
-            P("No key configured", cls="text-sm opacity-70")
-        )
-        
-        # Add key form
-        if update_action:
-            card_content.append(
+            Div(
+                P(
+                    "No API key configured",
+                    cls=combine_classes(
+                        font_size.sm,
+                        text_dui.base_content.opacity(60),
+                        m.b(4)
+                    )
+                ),
+                # Inline add key form
                 KeyInputForm(
                     provider=provider,
                     action=update_action,
                     show_help=False
-                )
+                ) if update_action else None,
+                cls=combine_classes(space.y(4))
             )
+        )
     
     return Div(
         Div(
             *card_content,
             cls=str(card_body)
         ),
-        cls=str(card)
+        cls=combine_classes(
+            card,
+            bg_dui.base_100,  # Ensure proper background
+            shadow.md,  # Add depth
+            transition.all,
+            duration._200,
+            shadow.lg.hover,  # Elevate on hover
+            border,
+            border_dui.base_300,  # Subtle border
+            w.full  # Ensure card takes full width of its grid cell
+        )
     )
 
 # %% ../../nbs/components/forms.ipynb 15
@@ -289,7 +500,11 @@ def KeyManagerDashboard(
     user_id: Optional[str] = None,  # Optional user ID for database storage
     base_url: str = "/api/keys"  # Base URL for API endpoints
 ) -> Div:  # Dashboard component with all provider cards
-    "Create a complete dashboard for managing multiple API keys."
+    "Create a complete dashboard for managing multiple API keys with improved layout."
+    # Import responsive grid helper
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import grid_display, grid_cols
+    from cjm_fasthtml_tailwind.utilities.sizing import min_h, h, container
+    
     # Get BYOK manager from request scope if not provided
     if byok_manager is None and 'byok' in request.scope:
         byok_manager = request.scope['byok']
@@ -320,11 +535,52 @@ def KeyManagerDashboard(
         )
     
     return Div(
+        # Container for proper max-width and centering
         Div(
-            *cards,
-            cls="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            # Header section with better spacing
+            Div(
+                Div(
+                    "API Key Management",
+                    cls=combine_classes(
+                        font_size._2xl,
+                        font_weight.bold,
+                        text_dui.base_content
+                    )
+                ),
+                P(
+                    "Manage your API keys for different providers",
+                    cls=combine_classes(
+                        text_dui.base_content.opacity(70),
+                        m.t(2)
+                    )
+                ),
+                cls=combine_classes(m.b(8))
+            ),
+            
+            # Cards grid - matching the test layout exactly
+            Div(
+                *cards,
+                cls=combine_classes(
+                    grid_display,
+                    grid_cols(1),  # 1 column on mobile
+                    grid_cols(2).md,  # 2 columns on tablet
+                    grid_cols(3).lg,  # 3 columns on desktop
+                    gap(4),  # Consistent gap matching test
+                    w.full
+                )
+            ),
+            cls=combine_classes(
+                container,  # Container for proper max-width
+                m.x.auto,  # Center the container
+                p(4),  # Padding for mobile
+                p(6).md  # More padding on larger screens
+            )
         ),
-        cls="w-full"
+        cls=combine_classes(
+            w.full,
+            min_h.screen,  # Full height
+            bg_dui.base_200.opacity(10)  # Very subtle background
+        )
     )
 
 # %% ../../nbs/components/forms.ipynb 18
@@ -334,17 +590,26 @@ def InlineKeyInput(
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
     compact: bool = True  # Whether to use compact styling
 ) -> Div:  # Inline input component
-    "Create a compact inline key input component."
+    "Create a compact inline key input component with polished design."
     provider_info = get_provider_info(provider)
     input_id = input_id or f"key-input-{provider}"
+    
+    # Import ring_dui for semantic ring colors
+    from cjm_fasthtml_daisyui.utilities.semantic_colors import ring_dui
     
     input_elem = Input(
         type="password",
         placeholder=provider_info['placeholder'],
         cls=combine_classes(
             text_input,
-            text_input_colors.primary if compact else None,
-            "input-sm" if compact else None
+            text_input_sizes.sm if compact else text_input_sizes.md,
+            bg_dui.base_100,
+            border_dui.base_300,
+            transition.all,
+            duration._200,
+            ring(2).focus,
+            ring_dui.primary.opacity(50).focus,  # Use semantic ring color
+            grow()  # Allow input to grow
         ),
         id=input_id,
         name="api_key"
@@ -355,7 +620,11 @@ def InlineKeyInput(
         cls=combine_classes(
             btn,
             btn_colors.primary,
-            btn_sizes.sm if compact else None
+            btn_sizes.sm if compact else btn_sizes.md,
+            shadow.sm,
+            transition.all,
+            duration._200,
+            shadow.md.hover
         )
     )
     
@@ -370,5 +639,10 @@ def InlineKeyInput(
     return Div(
         input_elem,
         save_btn,
-        cls=combine_classes(flex_display, gap._2)
+        cls=combine_classes(
+            flex_display,
+            gap(2),
+            items.stretch,  # Align items properly
+            w.full if not compact else None
+        )
     )

@@ -14,7 +14,7 @@ from fasthtml.svg import Svg, Path, Circle, Polyline, Line, G
 # daisyUI imports
 from cjm_fasthtml_daisyui.components.feedback.alert import alert, alert_colors, alert_styles
 from cjm_fasthtml_daisyui.components.feedback.toast import toast, toast_placement
-from cjm_fasthtml_daisyui.components.actions.button import btn, btn_sizes, btn_colors
+from cjm_fasthtml_daisyui.components.actions.button import btn, btn_sizes, btn_colors, btn_styles
 from cjm_fasthtml_daisyui.components.data_display.badge import badge, badge_colors
 
 # Tailwind imports  
@@ -142,13 +142,15 @@ def Alert(
     # Add title and message
     text_content = []
     if title:
-        text_content.append(Div(title, cls="font-bold"))
+        from cjm_fasthtml_tailwind.utilities.typography import font_weight
+        text_content.append(Div(title, cls=str(font_weight.bold)))
     text_content.append(Span(message))
     
     content.append(Div(*text_content))
     
     # Add dismiss button if needed
     if dismissible:
+        from cjm_fasthtml_tailwind.utilities.svg import stroke
         dismiss_btn = Button(
             Svg(
                 Path(
@@ -160,9 +162,9 @@ def Alert(
                 xmlns="http://www.w3.org/2000/svg",
                 fill="none",
                 viewBox="0 0 24 24",
-                cls=combine_classes("stroke-current", h._4, w._4)
+                cls=combine_classes(stroke.current, h._4, w._4)
             ),
-            cls=combine_classes(btn, "btn-ghost", btn_sizes.xs),
+            cls=combine_classes(btn, btn_styles.ghost, btn_sizes.xs),
             onclick=f"document.getElementById('{id or 'alert'}').remove()" if id else "this.parentElement.remove()"
         )
         content.append(dismiss_btn)
@@ -189,6 +191,9 @@ def SecurityAlert(
     action_text: str = "Fix Now"  # Text for the action button
 ) -> Div:  # Security alert component
     "Create a security-focused alert with severity levels."
+    from cjm_fasthtml_tailwind.utilities.typography import font_weight
+    from cjm_fasthtml_tailwind.utilities.spacing import m
+    
     # Map severity to alert type
     severity_map = {
         "low": "info",
@@ -202,14 +207,14 @@ def SecurityAlert(
     # Build content
     content = [
         Div(
-            Span("Security Alert", cls="font-bold"),
+            Span("Security Alert", cls=str(font_weight.bold)),
             Span(f" - {severity.upper()}", cls=combine_classes(
                 badge,
                 badge_colors.error if severity in ["high", "critical"] else badge_colors.warning,
-                "ml-2"
+                m.l(2)
             ))
         ),
-        P(message, cls="mt-2")
+        P(message, cls=str(m.t(2)))
     ]
     
     # Add action button if URL provided
@@ -222,7 +227,7 @@ def SecurityAlert(
                         btn,
                         btn_colors.error if severity in ["high", "critical"] else btn_colors.warning,
                         btn_sizes.sm,
-                        "mt-2"
+                        m.t(2)
                     ),
                     onclick=f"window.location.href='{action_url}'"
                 )
@@ -354,7 +359,10 @@ def ValidationMessage(
     show_icon: bool = True  # Whether to show an icon
 ) -> Div:  # Validation message component
     "Create an inline validation message for form fields."
-    from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui
+    from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui, stroke_dui
+    from cjm_fasthtml_tailwind.utilities.typography import font_size
+    from cjm_fasthtml_tailwind.utilities.spacing import m
+    from cjm_fasthtml_tailwind.utilities.svg import stroke as stroke_tw
     
     icon = None
     if show_icon:
@@ -395,8 +403,8 @@ def ValidationMessage(
             flex_display,
             items.center,
             gap._1,
-            "text-sm",
-            "mt-1",
+            font_size.sm,
+            m.t(1),
             text_dui.success if is_valid else text_dui.error
         )
     )
@@ -408,6 +416,11 @@ def AlertStack(
     spacing: str = "4"  # Gap between alerts
 ) -> Div:  # Alert stack component
     "Create a stack of alerts with optional limit."
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_align
+    from cjm_fasthtml_tailwind.utilities.interactivity import cursor
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    
     visible_alerts = alerts[:max_visible]
     hidden_count = len(alerts) - max_visible
     
@@ -418,11 +431,11 @@ def AlertStack(
             Div(
                 f"+{hidden_count} more",
                 cls=combine_classes(
-                    "text-sm",
-                    "text-center",
+                    font_size.sm,
+                    text_align.center,
                     opacity._70,
-                    "cursor-pointer",
-                    "hover:opacity-100"
+                    cursor.pointer,
+                    opacity._100.hover
                 ),
                 onclick="this.parentElement.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden')); this.remove();"
             )
@@ -430,14 +443,14 @@ def AlertStack(
         
         # Add hidden alerts
         for alert in alerts[max_visible:]:
-            alert.attrs['class'] = combine_classes(alert.attrs.get('class', ''), "hidden")
+            alert.attrs['class'] = combine_classes(alert.attrs.get('class', ''), display_tw.hidden)
             stack_content.append(alert)
     
     return Div(
         *stack_content,
         cls=combine_classes(
             flex_display,
-            "flex-col",
+            flex_direction.col,
             gap(spacing)
         )
     )
