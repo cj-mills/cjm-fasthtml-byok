@@ -4,6 +4,6 @@ project:
 website:
   title: "cjm-fasthtml-byok"
   site-url: "https://cj-mills.github.io/cjm-fasthtml-byok"
-  description: "A tiny nbdev library that lets FastHTML apps securely store, list, and retrieve per-user API keys (BYOK)—encrypted at rest, masked in UI, provider-agnostic."
+  description: "Secure API key management for FastHTML applications with encrypted storage, session/database persistence, and built-in UI components."
   repo-branch: main
   repo-url: "https://github.com/cj-mills/cjm-fasthtml-byok"
