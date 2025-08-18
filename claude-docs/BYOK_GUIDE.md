@@ -1,4 +1,6 @@
-# Claude Code Guide: Using cjm-fasthtml-byok Library
+# BYOK Guide: API Key Management for FastHTML Applications
+
+*Guide for Claude Code and developers using the `cjm-fasthtml-byok` library*
 
 ## Overview
 
@@ -99,6 +101,27 @@ api_key = byok.get_key(request, "openai", user_id=user_id)
 ```
 
 ## UI Components
+
+### Handling Name Conflicts
+
+Some components have generic names (Alert, Toast) that may conflict with other UI libraries. Use import aliasing to avoid conflicts:
+
+```python
+# Option 1: Alias on import
+from cjm_fasthtml_byok.components.alerts import Alert as BYOKAlert
+from another_ui_lib import Alert
+
+# Option 2: Namespace import
+from cjm_fasthtml_byok.components import alerts as byok_alerts
+alert = byok_alerts.Alert("message")
+
+# Option 3: Import only what you need
+from cjm_fasthtml_byok.components.forms import (
+    KeyInputForm,  # These are already specifically named
+    KeyManagementCard,
+    KeyManagerDashboard
+)
+```
 
 ### Forms
 
@@ -466,6 +489,178 @@ except EncryptionError:
     # Handle decryption failure
     return Alert("Failed to decrypt key", kind="error")
 ```
+
+## Usage Flows: Single-User vs Multi-User Applications
+
+### Single-User Applications
+
+For personal tools, local utilities, or self-hosted services with one user.
+
+#### Setup
+```python
+# Fixed user ID for single-user apps
+def get_user_id(request):
+    return "default"  # Same for all requests
+
+# Simple initialization
+byok = BYOKManager(
+    secret_key=SECRET_KEY,
+    db_url="sqlite:///keys.db"  # Local persistence
+)
+
+# No authentication needed
+@rt("/")
+def index(req, sess):
+    return KeyManagerDashboard(
+        req,
+        providers=["openai", "anthropic"],
+        byok_manager=byok,
+        user_id="default"
+    )
+```
+
+#### User Flow
+1. Open app → Direct access (no login)
+2. Add/manage keys → Stored locally
+3. Keys persist across sessions via database
+4. All features immediately available
+
+### Multi-User Applications
+
+For SaaS products, team tools, or hosted services with multiple users.
+
+#### Setup with Authentication
+```python
+import uuid
+
+# User ID from session after authentication
+def get_user_id(request):
+    return request.session.get("user_id")  # UUID from auth
+
+# Sign up - create user with UUID
+@rt("/signup", methods=["POST"])
+def signup(req, email: str, password: str):
+    user_id = str(uuid.uuid4())  # Generate UUID
+    create_user_in_db(user_id, email, password)
+    return RedirectResponse("/login")
+
+# Login - store UUID in session
+@rt("/login", methods=["POST"])
+def login(req, sess, email: str, password: str):
+    user = authenticate_user(email, password)
+    if user:
+        sess["user_id"] = user.id  # Store UUID
+        sess["user_email"] = user.email
+        return RedirectResponse("/dashboard")
+    return "Invalid credentials"
+
+# Protected dashboard
+@rt("/dashboard")
+def dashboard(req, sess):
+    if "user_id" not in sess:
+        return RedirectResponse("/login")
+    
+    user_id = sess["user_id"]
+    return KeyManagerDashboard(
+        req,
+        providers=["openai", "anthropic"],
+        byok_manager=byok,
+        user_id=user_id  # User's unique ID
+    )
+
+# Logout
+@rt("/logout")
+def logout(req, sess):
+    sess.clear()
+    return RedirectResponse("/")
+```
+
+#### User Flow
+1. Sign up → Creates account with UUID
+2. Login → UUID stored in session
+3. Dashboard → Shows only their keys
+4. Add keys → Tied to their UUID
+5. Logout → Session cleared
+6. Next login → Keys still there (database persistence)
+
+### Team/Organization Applications (Advanced)
+
+For enterprise tools where teams share organization keys.
+
+```python
+# Composite IDs for org and user separation
+def get_user_id(request):
+    user_id = request.session.get("user_id")
+    return f"usr:{user_id}" if user_id else None
+
+def get_org_id(request):
+    org_id = request.session.get("org_id")
+    return f"org:{org_id}" if org_id else None
+
+# Get key with org fallback
+def get_api_key_with_fallback(req, provider):
+    # Try personal key first
+    user_id = get_user_id(req)
+    key = byok.get_key(req, provider, user_id)
+    if key:
+        return key, "personal"
+    
+    # Fall back to org key
+    org_id = get_org_id(req)
+    key = byok.get_key(req, provider, org_id)
+    if key:
+        return key, "organization"
+    
+    return None, None
+```
+
+### Comparison
+
+| Aspect | Single-User | Multi-User |
+|--------|------------|------------|
+| **Authentication** | None required | Required |
+| **User ID** | Fixed ("default") | UUID per user |
+| **Key Isolation** | N/A (one user) | Complete isolation |
+| **Database** | Optional | Required |
+| **Session** | Optional | Required |
+| **Complexity** | Low | Medium |
+| **Use Cases** | Personal tools, CLI wrappers | SaaS, team tools |
+
+### Migration Strategy
+
+Start simple and upgrade when needed:
+
+```python
+# Configurable mode
+import os
+
+APP_MODE = os.environ.get("APP_MODE", "single")  # or "multi"
+
+def get_user_id(request):
+    if APP_MODE == "single":
+        return "default"
+    else:
+        # Multi-user mode
+        if "user_id" not in request.session:
+            return None  # Requires login
+        return request.session.get("user_id")
+
+# Routes adapt based on mode
+@rt("/")
+def index(req, sess):
+    if APP_MODE == "multi" and "user_id" not in sess:
+        return RedirectResponse("/login")
+    
+    user_id = get_user_id(req)
+    return KeyManagerDashboard(
+        req,
+        providers=["openai", "anthropic"],
+        byok_manager=byok,
+        user_id=user_id
+    )
+```
+
+This allows starting with single-user for prototypes, then enabling multi-user for production.
 
 ## Common Patterns
 

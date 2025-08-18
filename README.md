@@ -43,8 +43,8 @@ graph LR
     core_security --> core_types
     core_storage --> core_types
     core_storage --> core_security
-    middleware_beforeware --> core_security
     middleware_beforeware --> core_types
+    middleware_beforeware --> core_security
     middleware_beforeware --> core_storage
     utils_helpers --> core_security
 ```
