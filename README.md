@@ -38,13 +38,13 @@ graph LR
     middleware_beforeware[middleware.beforeware<br/>Beforeware]
     utils_helpers[utils.helpers<br/>Helpers]
 
-    components_forms --> core_security
     components_forms --> utils_helpers
+    components_forms --> core_security
     core_security --> core_types
-    core_storage --> core_security
     core_storage --> core_types
-    middleware_beforeware --> core_security
+    core_storage --> core_security
     middleware_beforeware --> core_types
+    middleware_beforeware --> core_security
     middleware_beforeware --> core_storage
     utils_helpers --> core_security
 ```
@@ -290,12 +290,13 @@ from cjm_fasthtml_byok.components.forms import (
 
 ``` python
 def KeyInputForm(
-    provider: str = "openai",  # The API provider identifier
+    provider: str,  # The API provider identifier
     action: Optional[str] = None,  # Form action URL (defaults to /api/keys/{provider})
     method: str = "post",  # HTTP method (default: "post")
     show_help: bool = True,  # Whether to show help text
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
-    extra_fields: Optional[List[tuple]] = None  # Additional form fields as [(name, type, placeholder, required), ...]
+    extra_fields: Optional[List[tuple]] = None,  # Additional form fields as [(name, type, placeholder, required), ...]
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Form:  # FastHTML Form component
     "Create a form for inputting an API key with improved design."
 ```
@@ -305,7 +306,8 @@ def MultiProviderKeyForm(
     providers: List[str],  # List of provider identifiers
     action: str = "/api/keys",  # Form action URL
     method: str = "post",  # HTTP method
-    default_provider: Optional[str] = None  # Initially selected provider
+    default_provider: Optional[str] = None,  # Initially selected provider
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Form:  # FastHTML Form component with provider selection
     "Create a form that allows selecting from multiple providers with enhanced UX."
 ```
@@ -318,7 +320,8 @@ def KeyManagementCard(
     created_at: Optional[str] = None,  # When the key was stored
     expires_at: Optional[str] = None,  # When the key expires
     delete_action: Optional[str] = None,  # URL for delete action
-    update_action: Optional[str] = None  # URL for update action
+    update_action: Optional[str] = None,  # URL for update action
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Card component for key management
     "Create a card component for managing a stored API key with enhanced design."
 ```
@@ -329,7 +332,8 @@ def KeyManagerDashboard(
     providers: List[str],  # List of provider identifiers to manage
     byok_manager = None,
     user_id: Optional[str] = None,  # Optional user ID for database storage
-    base_url: str = "/api/keys"  # Base URL for API endpoints
+    base_url: str = "/api/keys",  # Base URL for API endpoints
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Dashboard component with all provider cards
     "Create a complete dashboard for managing multiple API keys with improved layout."
 ```
@@ -339,7 +343,8 @@ def InlineKeyInput(
     provider: str,  # Provider identifier
     input_id: Optional[str] = None,  # HTML ID for the input element
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
-    compact: bool = True  # Whether to use compact styling
+    compact: bool = True,  # Whether to use compact styling
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Inline input component
     "Create a compact inline key input component with polished design."
 ```
@@ -352,7 +357,6 @@ def InlineKeyInput(
 
 ``` python
 from cjm_fasthtml_byok.utils.helpers import (
-    PROVIDER_INFO,
     get_provider_info,
     format_provider_name,
     format_key_age,
@@ -367,14 +371,16 @@ from cjm_fasthtml_byok.utils.helpers import (
 
 ``` python
 def get_provider_info(
-    provider: str  # Provider identifier
-) -> Dict[str, Any]:  # Provider info dict or default values
-    "Get provider information."
+    provider: str,  # Provider identifier
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
+) -> Dict[str, Any]:  # Provider info dict with defaults
+    "Get provider information from config or generate defaults."
 ```
 
 ``` python
 def format_provider_name(
-    provider: str  # Provider identifier
+    provider: str,  # Provider identifier
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> str:  # Formatted provider name
     "Format provider name for display."
 ```
@@ -397,7 +403,8 @@ def format_expiration(
 def get_key_summary(
     byok_manager,  # BYOK manager instance
     request,  # FastHTML request
-    user_id: Optional[str] = None  # Optional user ID
+    user_id: Optional[str] = None,  # Optional user ID
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Dict[str, Any]:  # Summary dictionary with provider info
     "Get a summary of all stored keys."
 ```
@@ -419,12 +426,6 @@ def import_from_env(
     env_prefix: str = "API_KEY_"  # Environment variable prefix
 ) -> Dict[str, bool]:  # Dict of provider: success status
     "Import API keys from environment variables."
-```
-
-#### Variables
-
-``` python
-PROVIDER_INFO = {6 items}
 ```
 
 ### Security (`security.ipynb`)

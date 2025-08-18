@@ -40,15 +40,16 @@ from IPython.display import display
 
 # %% ../../nbs/components/forms.ipynb 6
 def KeyInputForm(
-    provider: str = "openai",  # The API provider identifier
+    provider: str,  # The API provider identifier
     action: Optional[str] = None,  # Form action URL (defaults to /api/keys/{provider})
     method: str = "post",  # HTTP method (default: "post")
     show_help: bool = True,  # Whether to show help text
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
-    extra_fields: Optional[List[tuple]] = None  # Additional form fields as [(name, type, placeholder, required), ...]
+    extra_fields: Optional[List[tuple]] = None,  # Additional form fields as [(name, type, placeholder, required), ...]
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Form:  # FastHTML Form component
     "Create a form for inputting an API key with improved design."
-    provider_info = get_provider_info(provider)
+    provider_info = get_provider_info(provider, provider_config)
     placeholder = custom_placeholder or provider_info['placeholder']
     action_url = action or f"/api/keys/{provider}"
     
@@ -167,7 +168,8 @@ def MultiProviderKeyForm(
     providers: List[str],  # List of provider identifiers
     action: str = "/api/keys",  # Form action URL
     method: str = "post",  # HTTP method
-    default_provider: Optional[str] = None  # Initially selected provider
+    default_provider: Optional[str] = None,  # Initially selected provider
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Form:  # FastHTML Form component with provider selection
     "Create a form that allows selecting from multiple providers with enhanced UX."
     default = default_provider or (providers[0] if providers else None)
@@ -189,7 +191,7 @@ def MultiProviderKeyForm(
                     Select(
                         *[
                             Option(
-                                format_provider_name(p),
+                                format_provider_name(p, provider_config),
                                 value=p,
                                 selected=(p == default)
                             )
@@ -229,7 +231,7 @@ def MultiProviderKeyForm(
                     Input(
                         type="password",
                         name="api_key",
-                        placeholder=get_provider_info(default)['placeholder'] if default else "Enter your API key",
+                        placeholder=get_provider_info(default, provider_config)['placeholder'] if default else "Enter your API key",
                         cls=combine_classes(
                             text_input,
                             text_input_sizes.md,
@@ -303,10 +305,11 @@ def KeyManagementCard(
     created_at: Optional[str] = None,  # When the key was stored
     expires_at: Optional[str] = None,  # When the key expires
     delete_action: Optional[str] = None,  # URL for delete action
-    update_action: Optional[str] = None  # URL for update action
+    update_action: Optional[str] = None,  # URL for update action
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Card component for key management
     "Create a card component for managing a stored API key with enhanced design."
-    provider_info = get_provider_info(provider)
+    provider_info = get_provider_info(provider, provider_config)
     
     card_content = []
     
@@ -468,7 +471,8 @@ def KeyManagementCard(
                 KeyInputForm(
                     provider=provider,
                     action=update_action,
-                    show_help=False
+                    show_help=False,
+                    provider_config=provider_config
                 ) if update_action else None,
                 cls=combine_classes(space.y(4))
             )
@@ -498,7 +502,8 @@ def KeyManagerDashboard(
     providers: List[str],  # List of provider identifiers to manage
     byok_manager = None,
     user_id: Optional[str] = None,  # Optional user ID for database storage
-    base_url: str = "/api/keys"  # Base URL for API endpoints
+    base_url: str = "/api/keys",  # Base URL for API endpoints
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Dashboard component with all provider cards
     "Create a complete dashboard for managing multiple API keys with improved layout."
     # Import responsive grid helper
@@ -530,7 +535,8 @@ def KeyManagerDashboard(
                 has_key=has_key,
                 masked_key=masked_key,
                 delete_action=f"{base_url}/{provider}/delete" if has_key else None,
-                update_action=f"{base_url}/{provider}"
+                update_action=f"{base_url}/{provider}",
+                provider_config=provider_config
             )
         )
     
@@ -588,10 +594,11 @@ def InlineKeyInput(
     provider: str,  # Provider identifier
     input_id: Optional[str] = None,  # HTML ID for the input element
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
-    compact: bool = True  # Whether to use compact styling
+    compact: bool = True,  # Whether to use compact styling
+    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Div:  # Inline input component
     "Create a compact inline key input component with polished design."
-    provider_info = get_provider_info(provider)
+    provider_info = get_provider_info(provider, provider_config)
     input_id = input_id or f"key-input-{provider}"
     
     # Import ring_dui for semantic ring colors
