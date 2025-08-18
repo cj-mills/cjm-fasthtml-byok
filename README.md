@@ -38,14 +38,14 @@ graph LR
     middleware_beforeware[middleware.beforeware<br/>Beforeware]
     utils_helpers[utils.helpers<br/>Helpers]
 
-    components_forms --> core_security
     components_forms --> utils_helpers
+    components_forms --> core_security
     core_security --> core_types
-    core_storage --> core_security
     core_storage --> core_types
+    core_storage --> core_security
     middleware_beforeware --> core_security
-    middleware_beforeware --> core_storage
     middleware_beforeware --> core_types
+    middleware_beforeware --> core_storage
     utils_helpers --> core_security
 ```
 

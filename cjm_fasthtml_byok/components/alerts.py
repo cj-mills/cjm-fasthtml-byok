@@ -288,10 +288,10 @@ def KeyStatusNotification(
     
     # Add auto-dismiss functionality if enabled
     if auto_dismiss:
-        # Create a new div with auto-dismiss script
-        auto_dismiss_script = Span(
-            style="display: none;",
-            onload=f"setTimeout(() => document.getElementById('{notification_id}')?.remove(), {dismiss_after})"
+        from fasthtml.common import Script
+        # Create a script element that runs immediately
+        auto_dismiss_script = Script(
+            f"setTimeout(() => document.getElementById('{notification_id}')?.remove(), {dismiss_after});"
         )
         
         # Return a new Div containing both the alert and the script
@@ -339,6 +339,8 @@ def Toast(
     duration: int = 3000  # Duration in milliseconds
 ) -> Div:  # Toast notification component
     "Create a toast notification."
+    from fasthtml.common import Script
+    
     toast_id = f"toast-{id(message)}"
     
     return Div(
@@ -348,11 +350,13 @@ def Toast(
             dismissible=False,
             show_icon=True
         ),
-        id=toast_id,
-        onload=f"setTimeout(() => document.getElementById('{toast_id}')?.remove(), {duration})"
+        Script(
+            f"setTimeout(() => document.getElementById('{toast_id}')?.remove(), {duration});"
+        ),
+        id=toast_id
     )
 
-# %% ../../nbs/components/alerts.ipynb 21
+# %% ../../nbs/components/alerts.ipynb 22
 def ValidationMessage(
     message: str,  # Validation message
     is_valid: bool = False,  # Whether the validation passed
@@ -409,7 +413,7 @@ def ValidationMessage(
         )
     )
 
-# %% ../../nbs/components/alerts.ipynb 24
+# %% ../../nbs/components/alerts.ipynb 25
 def AlertStack(
     alerts: list,  # List of alert components
     max_visible: int = 3,  # Maximum number of visible alerts
