@@ -8,7 +8,7 @@ __all__ = ['InfoIcon', 'SuccessIcon', 'WarningIcon', 'ErrorIcon', 'Alert', 'Secu
 
 # %% ../../nbs/components/alerts.ipynb 3
 from typing import Optional, Literal, Union
-from fasthtml.common import Div, Span, Button, P
+from fasthtml.common import Div, Span, Button, P, FT
 from fasthtml.svg import Svg, Path, Circle, Polyline, Line, G
 
 # daisyUI imports
@@ -35,7 +35,7 @@ from IPython.display import display
 # %% ../../nbs/components/alerts.ipynb 6
 def InfoIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the info icon
+) -> FT:  # SVG element for the info icon
     """Create an info icon SVG."""
     return Svg(
         Path(
@@ -52,7 +52,7 @@ def InfoIcon(
 
 def SuccessIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the success icon
+) -> FT:  # SVG element for the success icon
     """Create a success/check icon SVG."""
     return Svg(
         Path(
@@ -69,7 +69,7 @@ def SuccessIcon(
 
 def WarningIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the warning icon
+) -> FT:  # SVG element for the warning icon
     """Create a warning/exclamation icon SVG."""
     return Svg(
         Path(
@@ -86,7 +86,7 @@ def WarningIcon(
 
 def ErrorIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the error icon
+) -> FT:  # SVG element for the error icon
     """Create an error/X icon SVG."""
     return Svg(
         Path(
@@ -110,8 +110,8 @@ def Alert(
     show_icon: bool = True,  # Whether to show an icon
     style: Optional[str] = None,  # Alert style ("soft", "outline", or None for default)
     id: Optional[str] = None  # HTML ID for the alert element
-) -> Div:  # Alert component
-    "Create an alert component for displaying messages."
+) -> FT:  # Alert component
+    """Create an alert component for displaying messages."""
     # Select appropriate icon
     icon = None
     if show_icon:
@@ -189,8 +189,8 @@ def SecurityAlert(
     severity: Literal["low", "medium", "high", "critical"] = "medium",
     action_url: Optional[str] = None,  # Optional URL for remediation action
     action_text: str = "Fix Now"  # Text for the action button
-) -> Div:  # Security alert component
-    "Create a security-focused alert with severity levels."
+) -> FT:  # Security alert component
+    """Create a security-focused alert with severity levels."""
     from cjm_fasthtml_tailwind.utilities.typography import font_weight
     from cjm_fasthtml_tailwind.utilities.spacing import m
     
@@ -254,8 +254,8 @@ def KeyStatusNotification(
     masked_key: Optional[str] = None,  # Masked version of the key
     auto_dismiss: bool = True,  # Whether to auto-dismiss
     dismiss_after: int = 5000  # Milliseconds before auto-dismiss
-) -> Div:  # Key status notification component
-    "Create a notification for API key status changes."
+) -> FT:  # Key status notification component
+    """Create a notification for API key status changes."""
     from cjm_fasthtml_byok.utils.helpers import format_provider_name
     
     provider_name = format_provider_name(provider)
@@ -308,8 +308,8 @@ def ToastContainer(
     position: Literal["top", "middle", "bottom"] = "top",
     align: Literal["start", "center", "end"] = "end",
     id: str = "toast-container"  # HTML ID for the container
-) -> Div:  # Toast container component
-    "Create a container for toast notifications."
+) -> FT:  # Toast container component
+    """Create a container for toast notifications."""
     # Build position classes
     position_classes = []
     
@@ -337,8 +337,8 @@ def Toast(
     message: str,  # Toast message
     kind: Literal["info", "success", "warning", "error"] = "info",
     duration: int = 3000  # Duration in milliseconds
-) -> Div:  # Toast notification component
-    "Create a toast notification."
+) -> FT:  # Toast notification component
+    """Create a toast notification."""
     from fasthtml.common import Script
     
     toast_id = f"toast-{id(message)}"
@@ -361,8 +361,8 @@ def ValidationMessage(
     message: str,  # Validation message
     is_valid: bool = False,  # Whether the validation passed
     show_icon: bool = True  # Whether to show an icon
-) -> Div:  # Validation message component
-    "Create an inline validation message for form fields."
+) -> FT:  # Validation message component
+    """Create an inline validation message for form fields."""
     from cjm_fasthtml_daisyui.utilities.semantic_colors import text_dui, stroke_dui
     from cjm_fasthtml_tailwind.utilities.typography import font_size
     from cjm_fasthtml_tailwind.utilities.spacing import m
@@ -418,8 +418,8 @@ def AlertStack(
     alerts: list,  # List of alert components
     max_visible: int = 3,  # Maximum number of visible alerts
     spacing: str = "4"  # Gap between alerts
-) -> Div:  # Alert stack component
-    "Create a stack of alerts with optional limit."
+) -> FT:  # Alert stack component
+    """Create a stack of alerts with optional limit."""
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_align
     from cjm_fasthtml_tailwind.utilities.interactivity import cursor
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction

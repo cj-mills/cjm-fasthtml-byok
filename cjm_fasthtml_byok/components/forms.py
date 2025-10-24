@@ -7,7 +7,7 @@ __all__ = ['KeyInputForm', 'MultiProviderKeyForm', 'KeyManagementCard', 'KeyMana
 
 # %% ../../nbs/components/forms.ipynb 3
 from typing import Optional, List, Dict, Any, Callable
-from fasthtml.common import Form, Div, Input, Label, Button, Span, P, Select, Option, Details, Summary
+from fasthtml.common import Form, Div, Input, Label, Button, Span, P, Select, Option, Details, Summary, FT
 
 # daisyUI imports
 from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors, text_input_sizes
@@ -47,8 +47,8 @@ def KeyInputForm(
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
     extra_fields: Optional[List[tuple]] = None,  # Additional form fields as [(name, type, placeholder, required), ...]
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Form:  # FastHTML Form component
-    "Create a form for inputting an API key with improved design."
+) -> FT:  # FastHTML Form component
+    """Create a form for inputting an API key with improved design."""
     provider_info = get_provider_info(provider, provider_config)
     placeholder = custom_placeholder or provider_info['placeholder']
     action_url = action or f"/api/keys/{provider}"
@@ -170,8 +170,8 @@ def MultiProviderKeyForm(
     method: str = "post",  # HTTP method
     default_provider: Optional[str] = None,  # Initially selected provider
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Form:  # FastHTML Form component with provider selection
-    "Create a form that allows selecting from multiple providers with enhanced UX."
+) -> FT:  # FastHTML Form component with provider selection
+    """Create a form that allows selecting from multiple providers with enhanced UX."""
     default = default_provider or (providers[0] if providers else None)
     
     return Form(
@@ -307,8 +307,8 @@ def KeyManagementCard(
     delete_action: Optional[str] = None,  # URL for delete action
     update_action: Optional[str] = None,  # URL for update action
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Card component for key management
-    "Create a card component for managing a stored API key with enhanced design."
+) -> FT:  # Card component for key management
+    """Create a card component for managing a stored API key with enhanced design."""
     provider_info = get_provider_info(provider, provider_config)
     
     card_content = []
@@ -504,8 +504,8 @@ def KeyManagerDashboard(
     user_id: Optional[str] = None,  # Optional user ID for database storage
     base_url: str = "/api/keys",  # Base URL for API endpoints
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Dashboard component with all provider cards
-    "Create a complete dashboard for managing multiple API keys with improved layout."
+) -> FT:  # Dashboard component with all provider cards
+    """Create a complete dashboard for managing multiple API keys with improved layout."""
     # Import responsive grid helper
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import grid_display, grid_cols
     from cjm_fasthtml_tailwind.utilities.sizing import min_h, h, container
@@ -596,8 +596,8 @@ def InlineKeyInput(
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
     compact: bool = True,  # Whether to use compact styling
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Inline input component
-    "Create a compact inline key input component with polished design."
+) -> FT:  # Inline input component
+    """Create a compact inline key input component with polished design."""
     provider_info = get_provider_info(provider, provider_config)
     input_id = input_id or f"key-input-{provider}"
     

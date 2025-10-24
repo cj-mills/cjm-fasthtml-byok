@@ -38,13 +38,13 @@ graph LR
     middleware_beforeware[middleware.beforeware<br/>Beforeware]
     utils_helpers[utils.helpers<br/>Helpers]
 
-    components_forms --> utils_helpers
     components_forms --> core_security
+    components_forms --> utils_helpers
     core_security --> core_types
     core_storage --> core_types
     core_storage --> core_security
-    middleware_beforeware --> core_types
     middleware_beforeware --> core_security
+    middleware_beforeware --> core_types
     middleware_beforeware --> core_storage
     utils_helpers --> core_security
 ```
@@ -86,28 +86,28 @@ from cjm_fasthtml_byok.components.alerts import (
 ``` python
 def InfoIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the info icon
+) -> FT:  # SVG element for the info icon
     "Create an info icon SVG."
 ```
 
 ``` python
 def SuccessIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the success icon
+) -> FT:  # SVG element for the success icon
     "Create a success/check icon SVG."
 ```
 
 ``` python
 def WarningIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the warning icon
+) -> FT:  # SVG element for the warning icon
     "Create a warning/exclamation icon SVG."
 ```
 
 ``` python
 def ErrorIcon(
     size: str = "6"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)
-) -> Svg:  # SVG element for the error icon
+) -> FT:  # SVG element for the error icon
     "Create an error/X icon SVG."
 ```
 
@@ -120,7 +120,7 @@ def Alert(
     show_icon: bool = True,  # Whether to show an icon
     style: Optional[str] = None,  # Alert style ("soft", "outline", or None for default)
     id: Optional[str] = None  # HTML ID for the alert element
-) -> Div:  # Alert component
+) -> FT:  # Alert component
     "Create an alert component for displaying messages."
 ```
 
@@ -130,7 +130,7 @@ def SecurityAlert(
     severity: Literal["low", "medium", "high", "critical"] = "medium",
     action_url: Optional[str] = None,  # Optional URL for remediation action
     action_text: str = "Fix Now"  # Text for the action button
-) -> Div:  # Security alert component
+) -> FT:  # Security alert component
     "Create a security-focused alert with severity levels."
 ```
 
@@ -141,7 +141,7 @@ def KeyStatusNotification(
     masked_key: Optional[str] = None,  # Masked version of the key
     auto_dismiss: bool = True,  # Whether to auto-dismiss
     dismiss_after: int = 5000  # Milliseconds before auto-dismiss
-) -> Div:  # Key status notification component
+) -> FT:  # Key status notification component
     "Create a notification for API key status changes."
 ```
 
@@ -150,7 +150,7 @@ def ToastContainer(
     position: Literal["top", "middle", "bottom"] = "top",
     align: Literal["start", "center", "end"] = "end",
     id: str = "toast-container"  # HTML ID for the container
-) -> Div:  # Toast container component
+) -> FT:  # Toast container component
     "Create a container for toast notifications."
 ```
 
@@ -159,7 +159,7 @@ def Toast(
     message: str,  # Toast message
     kind: Literal["info", "success", "warning", "error"] = "info",
     duration: int = 3000  # Duration in milliseconds
-) -> Div:  # Toast notification component
+) -> FT:  # Toast notification component
     "Create a toast notification."
 ```
 
@@ -168,7 +168,7 @@ def ValidationMessage(
     message: str,  # Validation message
     is_valid: bool = False,  # Whether the validation passed
     show_icon: bool = True  # Whether to show an icon
-) -> Div:  # Validation message component
+) -> FT:  # Validation message component
     "Create an inline validation message for form fields."
 ```
 
@@ -177,7 +177,7 @@ def AlertStack(
     alerts: list,  # List of alert components
     max_visible: int = 3,  # Maximum number of visible alerts
     spacing: str = "4"  # Gap between alerts
-) -> Div:  # Alert stack component
+) -> FT:  # Alert stack component
     "Create a stack of alerts with optional limit."
 ```
 
@@ -297,7 +297,7 @@ def KeyInputForm(
     custom_placeholder: Optional[str] = None,  # Custom placeholder text
     extra_fields: Optional[List[tuple]] = None,  # Additional form fields as [(name, type, placeholder, required), ...]
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Form:  # FastHTML Form component
+) -> FT:  # FastHTML Form component
     "Create a form for inputting an API key with improved design."
 ```
 
@@ -308,7 +308,7 @@ def MultiProviderKeyForm(
     method: str = "post",  # HTTP method
     default_provider: Optional[str] = None,  # Initially selected provider
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Form:  # FastHTML Form component with provider selection
+) -> FT:  # FastHTML Form component with provider selection
     "Create a form that allows selecting from multiple providers with enhanced UX."
 ```
 
@@ -322,7 +322,7 @@ def KeyManagementCard(
     delete_action: Optional[str] = None,  # URL for delete action
     update_action: Optional[str] = None,  # URL for update action
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Card component for key management
+) -> FT:  # Card component for key management
     "Create a card component for managing a stored API key with enhanced design."
 ```
 
@@ -334,7 +334,7 @@ def KeyManagerDashboard(
     user_id: Optional[str] = None,  # Optional user ID for database storage
     base_url: str = "/api/keys",  # Base URL for API endpoints
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Dashboard component with all provider cards
+) -> FT:  # Dashboard component with all provider cards
     "Create a complete dashboard for managing multiple API keys with improved layout."
 ```
 
@@ -345,7 +345,7 @@ def InlineKeyInput(
     on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)
     compact: bool = True,  # Whether to use compact styling
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
-) -> Div:  # Inline input component
+) -> FT:  # Inline input component
     "Create a compact inline key input component with polished design."
 ```
 

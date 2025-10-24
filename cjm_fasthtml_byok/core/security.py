@@ -23,7 +23,7 @@ def generate_encryption_key(
     password: Optional[str] = None,  # Optional password to derive key from
     salt: Optional[bytes] = None  # Optional salt for key derivation (required if password provided)
 ) -> bytes:  # 32-byte encryption key suitable for Fernet
-    "Generate or derive an encryption key."
+    """Generate or derive an encryption key."""
     if password:
         if not salt:
             salt = os.urandom(16)
@@ -43,7 +43,7 @@ def generate_encryption_key(
 def get_or_create_app_key(
     secret_key: str  # The application's secret key (from FastHTML app config)
 ) -> bytes:  # Encryption key for the app
-    "Get or create an app-specific encryption key derived from the app's secret key."
+    """Get or create an app-specific encryption key derived from the app's secret key."""
     # Use a fixed salt specific to BYOK to ensure consistency
     salt = b'cjm-fasthtml-byok-v1'
     return generate_encryption_key(password=secret_key, salt=salt)
@@ -134,7 +134,7 @@ class KeyEncryptor:
 def check_https(
     request  # FastHTML/Starlette request object
 ) -> bool:  # True if using HTTPS, False otherwise
-    "Check if the request is using HTTPS."
+    """Check if the request is using HTTPS."""
     return request.url.scheme == 'https'
 
 # %% ../../nbs/core/security.ipynb 11
@@ -143,7 +143,7 @@ def validate_environment(
     require_https: bool = True,  # Whether to require HTTPS
     is_production: bool = None  # Whether running in production (auto-detected if None)
 ) -> None:
-    "Validate the security environment."
+    """Validate the security environment."""
     if is_production is None:
         # Simple production detection
         is_production = not any([
@@ -165,7 +165,7 @@ def mask_key(
     key: str,  # The API key to mask
     visible_chars: int = 4  # Number of characters to show at start and end
 ) -> str:  # Masked key like 'sk-a...xyz'
-    "Mask an API key for display purposes."
+    """Mask an API key for display purposes."""
     if len(key) <= visible_chars * 2:
         return '*' * len(key)
     
@@ -175,6 +175,6 @@ def mask_key(
 def get_key_fingerprint(
     key: str  # The API key
 ) -> str:  # SHA256 fingerprint of the key (first 16 chars)
-    "Generate a fingerprint for an API key (for logging/tracking without exposing the key)."
+    """Generate a fingerprint for an API key (for logging/tracking without exposing the key)."""
     hash_obj = hashlib.sha256(key.encode())
     return hash_obj.hexdigest()[:16]

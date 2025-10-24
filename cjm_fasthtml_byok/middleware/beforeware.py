@@ -18,7 +18,7 @@ from ..core.types import KeyNotFoundError
 def create_byok_beforeware(
     byok_manager: BYOKManager  # The BYOK manager instance
 ):
-    "Create a FastHTML beforeware handler for BYOK functionality."
+    """Create a FastHTML beforeware handler for BYOK functionality."""
     def handler(
         req,  # FastHTML request object
         sess  # Session object
@@ -37,18 +37,18 @@ def require_api_key(
     provider: str,  # The provider name to check for
     user_id_func: Optional[Callable] = None  # Optional function to get user_id from request Usage: @rt @require_api_key("openai") def chat(request): byok = request.scope['byok'] api_key = byok.get_key(request, "openai") # Use the API key...
 ):
-    "Decorator that requires an API key to be present for a route."
+    """Decorator that requires an API key to be present for a route."""
     def decorator(
         func: Callable  # The route handler function to decorate
     ):
-        "Decorator function that wraps the route handler"
+        """Decorator function that wraps the route handler"""
         @wraps(func)
         def wrapper(
             request: Any,  # FastHTML request object
             *args,
             **kwargs
         ):
-            "Wrapper that checks for API key before calling the route handler"
+            """Wrapper that checks for API key before calling the route handler"""
             if 'byok' not in request.scope:
                 raise RuntimeError("BYOK beforeware not configured")
             
@@ -74,18 +74,18 @@ def require_any_api_key(
     providers: List[str],  # List of provider names to check
     user_id_func: Optional[Callable] = None  # Optional function to get user_id from request Usage: @rt @require_any_api_key(["openai", "anthropic", "google"]) def chat(request): # Use whichever API key is available pass
 ):
-    "Decorator that requires at least one of the specified API keys."
+    """Decorator that requires at least one of the specified API keys."""
     def decorator(
         func: Callable  # The route handler function to decorate
     ):
-        "Decorator function that wraps the route handler"
+        """Decorator function that wraps the route handler"""
         @wraps(func)
         def wrapper(
             request: Any,  # FastHTML request object
             *args,
             **kwargs
         ):
-            "Wrapper that checks for any API key before calling the route handler"
+            """Wrapper that checks for any API key before calling the route handler"""
             if 'byok' not in request.scope:
                 raise RuntimeError("BYOK beforeware not configured")
             
@@ -124,7 +124,7 @@ class SecurityCheckBeforeware:
         require_https: bool = True,  # Whether to require HTTPS in production
         is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)
     ):
-        "Initialize security check beforeware with HTTPS requirements"
+        """Initialize security check beforeware with HTTPS requirements"""
         self.require_https = require_https
         self.is_production = is_production
     
@@ -159,7 +159,7 @@ class CleanupBeforeware:
         byok_manager: BYOKManager,  # The BYOK manager instance
         user_id_func: Optional[Callable] = None  # Optional function to get user_id from request
     ):
-        "Initialize cleanup beforeware with BYOK manager"
+        """Initialize cleanup beforeware with BYOK manager"""
         self.byok = byok_manager
         self.user_id_func = user_id_func
     
@@ -193,7 +193,7 @@ def setup_byok(
     enable_security_checks: bool = True,  # Enable HTTPS checking
     enable_cleanup: bool = True  # Enable automatic cleanup of expired keys
 ):
-    "Complete setup helper for BYOK with FastHTML. Returns beforeware functions and the BYOK manager."
+    """Complete setup helper for BYOK with FastHTML. Returns beforeware functions and the BYOK manager."""
     from cjm_fasthtml_byok.core.types import BYOKConfig
     
     # Create manager

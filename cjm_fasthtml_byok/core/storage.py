@@ -27,7 +27,7 @@ class SessionStorage:
         self,
         config: BYOKConfig  # BYOK configuration object
     ):
-        "Initialize session storage with configuration"
+        """Initialize session storage with configuration"""
         self.config = config
         self.prefix = config.session_key_prefix
     
@@ -303,7 +303,7 @@ class HybridStorage:
         config: BYOKConfig,  # BYOK configuration object
         db_url: Optional[str] = None  # Optional database URL for persistent storage
     ):
-        "Initialize hybrid storage with session and optional database backends"
+        """Initialize hybrid storage with session and optional database backends"""
         self.config = config
         self.session_storage = SessionStorage(config)
         self.db_storage = DatabaseStorage(config, db_url) if db_url else None

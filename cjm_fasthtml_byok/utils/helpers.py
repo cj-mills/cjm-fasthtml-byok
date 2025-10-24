@@ -18,7 +18,7 @@ def get_provider_info(
     provider: str,  # Provider identifier
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Dict[str, Any]:  # Provider info dict with defaults
-    "Get provider information from config or generate defaults."
+    """Get provider information from config or generate defaults."""
     if provider_config and provider in provider_config:
         return provider_config[provider]
     
@@ -35,7 +35,7 @@ def format_provider_name(
     provider: str,  # Provider identifier
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> str:  # Formatted provider name
-    "Format provider name for display."
+    """Format provider name for display."""
     info = get_provider_info(provider, provider_config)
     return info['name']
 
@@ -43,7 +43,7 @@ def format_provider_name(
 def format_key_age(
     created_at: datetime  # When the key was created
 ) -> str:  # Human-readable age string
-    "Format the age of a key for display."
+    """Format the age of a key for display."""
     age = datetime.now() - created_at
     
     if age.days > 30:
@@ -64,7 +64,7 @@ def format_key_age(
 def format_expiration(
     expires_at: Optional[datetime]  # Expiration datetime
 ) -> str:  # Human-readable expiration string
-    "Format expiration time for display."
+    """Format expiration time for display."""
     if not expires_at:
         return "Never"
     
@@ -89,7 +89,7 @@ def get_key_summary(
     user_id: Optional[str] = None,  # Optional user ID
     provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration
 ) -> Dict[str, Any]:  # Summary dictionary with provider info
-    "Get a summary of all stored keys."
+    """Get a summary of all stored keys."""
     providers = byok_manager.list_providers(request, user_id)
     summary = []
     
@@ -120,7 +120,7 @@ def get_env_key(
     provider: str,  # Provider name
     env_prefix: str = "API_KEY_"  # Environment variable prefix
 ) -> Optional[str]:  # API key from environment or None
-    "Get an API key from environment variables."
+    """Get an API key from environment variables."""
     import os
     env_var = f"{env_prefix}{provider.upper()}"
     return os.environ.get(env_var)
@@ -133,7 +133,7 @@ def import_from_env(
     user_id: Optional[str] = None,  # Optional user ID
     env_prefix: str = "API_KEY_"  # Environment variable prefix
 ) -> Dict[str, bool]:  # Dict of provider: success status
-    "Import API keys from environment variables."
+    """Import API keys from environment variables."""
     results = {}
     
     for provider in providers:
