@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="FastHTML alert and notification components for user feedback">
+
+<title>Alerts – cjm-fasthtml-byok</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Alerts – cjm-fasthtml-byok">
+<meta property="og:description" content="FastHTML alert and notification components for user feedback">
+<meta property="og:site_name" content="cjm-fasthtml-byok">
+<meta name="twitter:title" content="Alerts – cjm-fasthtml-byok">
+<meta name="twitter:description" content="FastHTML alert and notification components for user feedback">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">cjm-fasthtml-byok</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/alerts.html">components</a></li><li class="breadcrumb-item"><a href="../components/alerts.html">Alerts</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cjm-fasthtml-byok</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">components</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../components/alerts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Alerts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../components/forms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Forms</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">core</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/security.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Security</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/storage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Storage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/types.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Types</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">middleware</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../middleware/beforeware.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beforeware</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">utils</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utils/helpers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helpers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#icon-components" id="toc-icon-components" class="nav-link active" data-scroll-target="#icon-components">Icon Components</a>
+  <ul class="collapse">
+  <li><a href="#erroricon" id="toc-erroricon" class="nav-link" data-scroll-target="#erroricon">ErrorIcon</a></li>
+  <li><a href="#warningicon" id="toc-warningicon" class="nav-link" data-scroll-target="#warningicon">WarningIcon</a></li>
+  <li><a href="#successicon" id="toc-successicon" class="nav-link" data-scroll-target="#successicon">SuccessIcon</a></li>
+  <li><a href="#infoicon" id="toc-infoicon" class="nav-link" data-scroll-target="#infoicon">InfoIcon</a></li>
+  </ul></li>
+  <li><a href="#basic-alert-component" id="toc-basic-alert-component" class="nav-link" data-scroll-target="#basic-alert-component">Basic Alert Component</a>
+  <ul class="collapse">
+  <li><a href="#alert" id="toc-alert" class="nav-link" data-scroll-target="#alert">Alert</a></li>
+  </ul></li>
+  <li><a href="#security-specific-alerts" id="toc-security-specific-alerts" class="nav-link" data-scroll-target="#security-specific-alerts">Security-Specific Alerts</a>
+  <ul class="collapse">
+  <li><a href="#securityalert" id="toc-securityalert" class="nav-link" data-scroll-target="#securityalert">SecurityAlert</a></li>
+  </ul></li>
+  <li><a href="#key-status-notifications" id="toc-key-status-notifications" class="nav-link" data-scroll-target="#key-status-notifications">Key Status Notifications</a>
+  <ul class="collapse">
+  <li><a href="#keystatusnotification" id="toc-keystatusnotification" class="nav-link" data-scroll-target="#keystatusnotification">KeyStatusNotification</a></li>
+  </ul></li>
+  <li><a href="#toast-notifications" id="toc-toast-notifications" class="nav-link" data-scroll-target="#toast-notifications">Toast Notifications</a>
+  <ul class="collapse">
+  <li><a href="#toastcontainer" id="toc-toastcontainer" class="nav-link" data-scroll-target="#toastcontainer">ToastContainer</a></li>
+  <li><a href="#toast" id="toc-toast" class="nav-link" data-scroll-target="#toast">Toast</a></li>
+  </ul></li>
+  <li><a href="#inline-validation-messages" id="toc-inline-validation-messages" class="nav-link" data-scroll-target="#inline-validation-messages">Inline Validation Messages</a>
+  <ul class="collapse">
+  <li><a href="#validationmessage" id="toc-validationmessage" class="nav-link" data-scroll-target="#validationmessage">ValidationMessage</a></li>
+  </ul></li>
+  <li><a href="#alert-stack-manager" id="toc-alert-stack-manager" class="nav-link" data-scroll-target="#alert-stack-manager">Alert Stack Manager</a>
+  <ul class="collapse">
+  <li><a href="#alertstack" id="toc-alertstack" class="nav-link" data-scroll-target="#alertstack">AlertStack</a></li>
+  </ul></li>
+  <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">Tests</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-byok/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="alerts.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/alerts.html">components</a></li><li class="breadcrumb-item"><a href="../components/alerts.html">Alerts</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Alerts</h1>
+</div>
+
+<div>
+  <div class="description">
+    FastHTML alert and notification components for user feedback
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="icon-components" class="level2">
+<h2 class="anchored" data-anchor-id="icon-components">Icon Components</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L87" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="erroricon" class="level3">
+<h3 class="anchored" data-anchor-id="erroricon">ErrorIcon</h3>
+<blockquote class="blockquote">
+<pre><code> ErrorIcon (size:str='6')</code></pre>
+</blockquote>
+<p><em>Create an error/X icon SVG.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>size</td>
+<td>str</td>
+<td>6</td>
+<td>Size of the icon (matches Tailwind h-{size} and w-{size} classes)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>SVG element for the error icon</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L70" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="warningicon" class="level3">
+<h3 class="anchored" data-anchor-id="warningicon">WarningIcon</h3>
+<blockquote class="blockquote">
+<pre><code> WarningIcon (size:str='6')</code></pre>
+</blockquote>
+<p><em>Create a warning/exclamation icon SVG.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>size</td>
+<td>str</td>
+<td>6</td>
+<td>Size of the icon (matches Tailwind h-{size} and w-{size} classes)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>SVG element for the warning icon</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L53" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="successicon" class="level3">
+<h3 class="anchored" data-anchor-id="successicon">SuccessIcon</h3>
+<blockquote class="blockquote">
+<pre><code> SuccessIcon (size:str='6')</code></pre>
+</blockquote>
+<p><em>Create a success/check icon SVG.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>size</td>
+<td>str</td>
+<td>6</td>
+<td>Size of the icon (matches Tailwind h-{size} and w-{size} classes)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>SVG element for the success icon</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L36" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="infoicon" class="level3">
+<h3 class="anchored" data-anchor-id="infoicon">InfoIcon</h3>
+<blockquote class="blockquote">
+<pre><code> InfoIcon (size:str='6')</code></pre>
+</blockquote>
+<p><em>Create an info icon SVG.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>size</td>
+<td>str</td>
+<td>6</td>
+<td>Size of the icon (matches Tailwind h-{size} and w-{size} classes)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>SVG element for the info icon</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="basic-alert-component" class="level2">
+<h2 class="anchored" data-anchor-id="basic-alert-component">Basic Alert Component</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L105" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="alert" class="level3">
+<h3 class="anchored" data-anchor-id="alert">Alert</h3>
+<blockquote class="blockquote">
+<pre><code> Alert (message:str,
+        kind:Literal['info','success','warning','error']='info',
+        title:Optional[str]=None, dismissible:bool=False,
+        show_icon:bool=True, style:Optional[str]=None,
+        id:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Create an alert component for displaying messages.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>message</td>
+<td>str</td>
+<td></td>
+<td>The alert message</td>
+</tr>
+<tr class="even">
+<td>kind</td>
+<td>Literal</td>
+<td>info</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>title</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional title for the alert</td>
+</tr>
+<tr class="even">
+<td>dismissible</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether the alert can be dismissed</td>
+</tr>
+<tr class="odd">
+<td>show_icon</td>
+<td>bool</td>
+<td>True</td>
+<td>Whether to show an icon</td>
+</tr>
+<tr class="even">
+<td>style</td>
+<td>Optional</td>
+<td>None</td>
+<td>Alert style (“soft”, “outline”, or None for default)</td>
+</tr>
+<tr class="odd">
+<td>id</td>
+<td>Optional</td>
+<td>None</td>
+<td>HTML ID for the alert element</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Alert component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="c87a6a0b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> Alert</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> flex_direction</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    alerts <span class="op">=</span> [</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"This is an info alert"</span>, kind<span class="op">=</span><span class="st">"info"</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Operation successful!"</span>, kind<span class="op">=</span><span class="st">"success"</span>, title<span class="op">=</span><span class="st">"Success"</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Please review your input"</span>, kind<span class="op">=</span><span class="st">"warning"</span>, dismissible<span class="op">=</span><span class="va">True</span>, <span class="bu">id</span><span class="op">=</span><span class="st">"warn1"</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"An error occurred"</span>, kind<span class="op">=</span><span class="st">"error"</span>, style<span class="op">=</span><span class="st">"soft"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Alert Examples"</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        Div(<span class="op">*</span>alerts, cls<span class="op">=</span>combine_classes(flex_display, flex_direction.col, gap._4))</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="security-specific-alerts" class="level2">
+<h2 class="anchored" data-anchor-id="security-specific-alerts">Security-Specific Alerts</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L187" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="securityalert" class="level3">
+<h3 class="anchored" data-anchor-id="securityalert">SecurityAlert</h3>
+<blockquote class="blockquote">
+<pre><code> SecurityAlert (message:str,
+                severity:Literal['low','medium','high','critical']='medium
+                ', action_url:Optional[str]=None, action_text:str='Fix
+                Now')</code></pre>
+</blockquote>
+<p><em>Create a security-focused alert with severity levels.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>message</td>
+<td>str</td>
+<td></td>
+<td>Security alert message</td>
+</tr>
+<tr class="even">
+<td>severity</td>
+<td>Literal</td>
+<td>medium</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>action_url</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional URL for remediation action</td>
+</tr>
+<tr class="even">
+<td>action_text</td>
+<td>str</td>
+<td>Fix Now</td>
+<td>Text for the action button</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Security alert component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="c138b92b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> SecurityAlert</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> flex_direction</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    alerts <span class="op">=</span> [</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        SecurityAlert(<span class="st">"Consider enabling HTTPS for production"</span>, severity<span class="op">=</span><span class="st">"low"</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        SecurityAlert(<span class="st">"API keys transmitted over HTTP"</span>, severity<span class="op">=</span><span class="st">"high"</span>, action_url<span class="op">=</span><span class="st">"/settings/security"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Security Alert Examples"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        Div(<span class="op">*</span>alerts, cls<span class="op">=</span>combine_classes(flex_display, flex_direction.col, gap._4))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="key-status-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="key-status-notifications">Key Status Notifications</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L251" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="keystatusnotification" class="level3">
+<h3 class="anchored" data-anchor-id="keystatusnotification">KeyStatusNotification</h3>
+<blockquote class="blockquote">
+<pre><code> KeyStatusNotification (provider:str,
+                        status:Literal['added','updated','deleted','expire
+                        d','invalid'], masked_key:Optional[str]=None,
+                        auto_dismiss:bool=True, dismiss_after:int=5000)</code></pre>
+</blockquote>
+<p><em>Create a notification for API key status changes.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>provider</td>
+<td>str</td>
+<td></td>
+<td>Provider name</td>
+</tr>
+<tr class="even">
+<td>status</td>
+<td>Literal</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>masked_key</td>
+<td>Optional</td>
+<td>None</td>
+<td>Masked version of the key</td>
+</tr>
+<tr class="even">
+<td>auto_dismiss</td>
+<td>bool</td>
+<td>True</td>
+<td>Whether to auto-dismiss</td>
+</tr>
+<tr class="odd">
+<td>dismiss_after</td>
+<td>int</td>
+<td>5000</td>
+<td>Milliseconds before auto-dismiss</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Key status notification component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="ab2701cc" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> KeyStatusNotification</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> flex_direction</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    notifications <span class="op">=</span> [</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        KeyStatusNotification(<span class="st">"openai"</span>, <span class="st">"added"</span>, masked_key<span class="op">=</span><span class="st">"sk-...xyz"</span>),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        KeyStatusNotification(<span class="st">"anthropic"</span>, <span class="st">"expired"</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        KeyStatusNotification(<span class="st">"google"</span>, <span class="st">"invalid"</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Key Status Notifications"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        Div(<span class="op">*</span>notifications, cls<span class="op">=</span>combine_classes(flex_display, flex_direction.col, gap._4))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="toast-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="toast-notifications">Toast Notifications</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L307" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="toastcontainer" class="level3">
+<h3 class="anchored" data-anchor-id="toastcontainer">ToastContainer</h3>
+<blockquote class="blockquote">
+<pre><code> ToastContainer (position:Literal['top','middle','bottom']='top',
+                 align:Literal['start','center','end']='end',
+                 id:str='toast-container')</code></pre>
+</blockquote>
+<p><em>Create a container for toast notifications.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>position</td>
+<td>Literal</td>
+<td>top</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>align</td>
+<td>Literal</td>
+<td>end</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>id</td>
+<td>str</td>
+<td>toast-container</td>
+<td>HTML ID for the container</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Toast container component</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L336" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="toast" class="level3">
+<h3 class="anchored" data-anchor-id="toast">Toast</h3>
+<blockquote class="blockquote">
+<pre><code> Toast (message:str,
+        kind:Literal['info','success','warning','error']='info',
+        duration:int=3000)</code></pre>
+</blockquote>
+<p><em>Create a toast notification.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>message</td>
+<td>str</td>
+<td></td>
+<td>Toast message</td>
+</tr>
+<tr class="even">
+<td>kind</td>
+<td>Literal</td>
+<td>info</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>duration</td>
+<td>int</td>
+<td>3000</td>
+<td>Duration in milliseconds</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Toast notification component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="ab449b5a-91d9-4004-8dd4-e35356236658" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Toast(<span class="st">"API key saved!"</span>, kind<span class="op">=</span><span class="st">"success"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">"toast-139483155685168"</span><span class="dt">&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> role</span><span class="op">=</span><span class="st">"alert"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"alert alert-success"</span><span class="dt">&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">svg</span><span class="ot"> xmlns</span><span class="op">=</span><span class="st">"http://www.w3.org/2000/svg"</span><span class="ot"> viewbox</span><span class="op">=</span><span class="st">"0 0 24 24"</span><span class="ot"> fill</span><span class="op">=</span><span class="st">"none"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"stroke-success-content h-6 w-6 shrink-0"</span><span class="dt">&gt;&lt;</span><span class="kw">path</span><span class="ot"> d</span><span class="op">=</span><span class="st">"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"</span><span class="ot"> stroke-width</span><span class="op">=</span><span class="st">"2"</span><span class="ot"> stroke-linecap</span><span class="op">=</span><span class="st">"round"</span><span class="ot"> stroke-linejoin</span><span class="op">=</span><span class="st">"round"</span><span class="dt">&gt;&lt;/</span><span class="kw">path</span><span class="dt">&gt;&lt;/</span><span class="kw">svg</span><span class="dt">&gt;</span>    <span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>API key saved!<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span>    <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span><span class="pp">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">'toast-139483155685168'</span>)<span class="op">?.</span><span class="fu">remove</span>()<span class="op">,</span> <span class="dv">3000</span>)<span class="op">;</span><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="c38df2ef" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Toast Examples"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        Div(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            ToastContainer(position<span class="op">=</span><span class="st">"top"</span>, align<span class="op">=</span><span class="st">"end"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            Div(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                Toast(<span class="st">"API key saved!"</span>, kind<span class="op">=</span><span class="st">"success"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                Toast(<span class="st">"Please check your input"</span>, kind<span class="op">=</span><span class="st">"warning"</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                cls<span class="op">=</span>combine_classes(toast, toast_placement.top, toast_placement.end)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="inline-validation-messages" class="level2">
+<h2 class="anchored" data-anchor-id="inline-validation-messages">Inline Validation Messages</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L360" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="validationmessage" class="level3">
+<h3 class="anchored" data-anchor-id="validationmessage">ValidationMessage</h3>
+<blockquote class="blockquote">
+<pre><code> ValidationMessage (message:str, is_valid:bool=False, show_icon:bool=True)</code></pre>
+</blockquote>
+<p><em>Create an inline validation message for form fields.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>message</td>
+<td>str</td>
+<td></td>
+<td>Validation message</td>
+</tr>
+<tr class="even">
+<td>is_valid</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether the validation passed</td>
+</tr>
+<tr class="odd">
+<td>show_icon</td>
+<td>bool</td>
+<td>True</td>
+<td>Whether to show an icon</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Validation message component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="89a45b46" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> ValidationMessage</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> fasthtml.common <span class="im">import</span> Input, Label</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_daisyui.components.data_input.text_input <span class="im">import</span> text_input, text_input_colors</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> flex_direction</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Validation Messages"</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        Div(</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            Div(</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>                Label(<span class="st">"Valid API Key"</span>),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                Input(</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">type</span><span class="op">=</span><span class="st">"password"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                    value<span class="op">=</span><span class="st">"sk-1234567890abcdef"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>                    cls<span class="op">=</span>combine_classes(text_input, text_input_colors.success)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                ),</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                ValidationMessage(<span class="st">"API key format is valid"</span>, is_valid<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>            Div(</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                Label(<span class="st">"Invalid API Key"</span>),</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>                Input(</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">type</span><span class="op">=</span><span class="st">"password"</span>,</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>                    value<span class="op">=</span><span class="st">"invalid-key"</span>,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                    cls<span class="op">=</span>combine_classes(text_input, text_input_colors.error)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>                ),</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>                ValidationMessage(<span class="st">"API key format is incorrect"</span>, is_valid<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>            cls<span class="op">=</span>combine_classes(flex_display, flex_direction.col, gap._6)</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="alert-stack-manager" class="level2">
+<h2 class="anchored" data-anchor-id="alert-stack-manager">Alert Stack Manager</h2>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-byok/blob/main/cjm_fasthtml_byok/components/alerts.py#L417" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="alertstack" class="level3">
+<h3 class="anchored" data-anchor-id="alertstack">AlertStack</h3>
+<blockquote class="blockquote">
+<pre><code> AlertStack (alerts:list, max_visible:int=3, spacing:str='4')</code></pre>
+</blockquote>
+<p><em>Create a stack of alerts with optional limit.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>alerts</td>
+<td>list</td>
+<td></td>
+<td>List of alert components</td>
+</tr>
+<tr class="even">
+<td>max_visible</td>
+<td>int</td>
+<td>3</td>
+<td>Maximum number of visible alerts</td>
+</tr>
+<tr class="odd">
+<td>spacing</td>
+<td>str</td>
+<td>4</td>
+<td>Gap between alerts</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>FT</strong></td>
+<td></td>
+<td><strong>Alert stack component</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="1393a763" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> AlertStack</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app(theme<span class="op">=</span>DaisyUITheme.LIGHT)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    test_alerts <span class="op">=</span> [</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"First alert"</span>, kind<span class="op">=</span><span class="st">"info"</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Second alert"</span>, kind<span class="op">=</span><span class="st">"success"</span>),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Third alert"</span>, kind<span class="op">=</span><span class="st">"warning"</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Fourth alert (hidden)"</span>, kind<span class="op">=</span><span class="st">"error"</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        Alert(<span class="st">"Fifth alert (hidden)"</span>, kind<span class="op">=</span><span class="st">"info"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Alert Stack"</span>,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        AlertStack(test_alerts, max_visible<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="tests" class="level2">
+<h2 class="anchored" data-anchor-id="tests">Tests</h2>
+<div id="fd4f08c0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test basic alert</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>basic_alert <span class="op">=</span> Alert(<span class="st">"Test message"</span>, kind<span class="op">=</span><span class="st">"info"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> basic_alert.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> basic_alert.attrs[<span class="st">'role'</span>] <span class="op">==</span> <span class="st">"alert"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Basic alert"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test dismissible alert</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>dismiss_alert <span class="op">=</span> Alert(<span class="st">"Dismissible"</span>, dismissible<span class="op">=</span><span class="va">True</span>, <span class="bu">id</span><span class="op">=</span><span class="st">"test-alert"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">any</span>(<span class="st">"button"</span> <span class="kw">in</span> <span class="bu">str</span>(child.tag) <span class="cf">for</span> child <span class="kw">in</span> dismiss_alert.children <span class="cf">if</span> <span class="bu">hasattr</span>(child, <span class="st">'tag'</span>))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Dismissible alert"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Test security alert</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>sec_alert <span class="op">=</span> SecurityAlert(<span class="st">"Security issue"</span>, severity<span class="op">=</span><span class="st">"high"</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> sec_alert.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Security alert"</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test key notification</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>key_notif <span class="op">=</span> KeyStatusNotification(<span class="st">"openai"</span>, <span class="st">"added"</span>, masked_key<span class="op">=</span><span class="st">"sk-..."</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> key_notif.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Key status notification"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Test validation message</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>val_msg <span class="op">=</span> ValidationMessage(<span class="st">"Valid input"</span>, is_valid<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> val_msg.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Validation message"</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Test toast container</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>toast_cont <span class="op">=</span> ToastContainer(position<span class="op">=</span><span class="st">"top"</span>, align<span class="op">=</span><span class="st">"end"</span>)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> toast_cont.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Toast container"</span>)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Test alert stack</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>alerts <span class="op">=</span> [Alert(<span class="ss">f"Alert </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>, kind<span class="op">=</span><span class="st">"info"</span>) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>stack <span class="op">=</span> AlertStack(alerts, max_visible<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> stack.tag <span class="op">==</span> <span class="st">"div"</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(stack.children) <span class="op">&gt;</span> <span class="dv">3</span>  <span class="co"># Has hidden alerts</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✓ Alert stack"</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All alert component tests passed!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✓ Basic alert
+✓ Dismissible alert
+✓ Security alert
+✓ Key status notification
+✓ Validation message
+✓ Toast container
+✓ Alert stack
+
+All alert component tests passed!</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/cj-mills\.github\.io\/cjm-fasthtml-byok");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-byok/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

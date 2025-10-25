@@ -1,0 +1,557 @@
+[
+  {
+    "objectID": "core/storage.html",
+    "href": "core/storage.html",
+    "title": "Storage",
+    "section": "",
+    "text": "source\n\n\n\n SessionStorage (config:cjm_fasthtml_byok.core.types.BYOKConfig)\n\nSession-based storage for API keys. Keys are stored in the user’s session and expire with the session.\n\n\n\n\nType\nDetails\n\n\n\n\nconfig\nBYOKConfig\nBYOK configuration object",
+    "crumbs": [
+      "core",
+      "Storage"
+    ]
+  },
+  {
+    "objectID": "core/storage.html#session-storage",
+    "href": "core/storage.html#session-storage",
+    "title": "Storage",
+    "section": "",
+    "text": "source\n\n\n\n SessionStorage (config:cjm_fasthtml_byok.core.types.BYOKConfig)\n\nSession-based storage for API keys. Keys are stored in the user’s session and expire with the session.\n\n\n\n\nType\nDetails\n\n\n\n\nconfig\nBYOKConfig\nBYOK configuration object",
+    "crumbs": [
+      "core",
+      "Storage"
+    ]
+  },
+  {
+    "objectID": "core/storage.html#database-storage",
+    "href": "core/storage.html#database-storage",
+    "title": "Storage",
+    "section": "Database Storage",
+    "text": "Database Storage\n\nsource\n\nDatabaseStorage\n\n DatabaseStorage (config:cjm_fasthtml_byok.core.types.BYOKConfig,\n                  db_url:str='sqlite:///byok_keys.db')\n\nDatabase-backed storage for API keys using SQLAlchemy 2.0+. Keys persist across sessions and devices.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nconfig\nBYOKConfig\n\nBYOK configuration object\n\n\ndb_url\nstr\nsqlite:///byok_keys.db\nDatabase URL (defaults to SQLite)",
+    "crumbs": [
+      "core",
+      "Storage"
+    ]
+  },
+  {
+    "objectID": "core/storage.html#hybrid-storage",
+    "href": "core/storage.html#hybrid-storage",
+    "title": "Storage",
+    "section": "Hybrid Storage",
+    "text": "Hybrid Storage\n\nsource\n\nHybridStorage\n\n HybridStorage (config:cjm_fasthtml_byok.core.types.BYOKConfig,\n                db_url:Optional[str]=None)\n\nHybrid storage using both session and database. Session acts as a cache, database provides persistence.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nconfig\nBYOKConfig\n\nBYOK configuration object\n\n\ndb_url\nOptional\nNone\nOptional database URL for persistent storage",
+    "crumbs": [
+      "core",
+      "Storage"
+    ]
+  },
+  {
+    "objectID": "core/storage.html#main-manager",
+    "href": "core/storage.html#main-manager",
+    "title": "Storage",
+    "section": "Main Manager",
+    "text": "Main Manager\n\nsource\n\nBYOKManager\n\n BYOKManager (secret_key:str, db_url:Optional[str]=None,\n              config:Optional[cjm_fasthtml_byok.core.types.BYOKConfig]=Non\n              e)\n\nMain manager for the BYOK system. Handles encryption and storage coordination.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsecret_key\nstr\n\nApplication secret key for encryption\n\n\ndb_url\nOptional\nNone\nOptional database URL for persistent storage (e.g., “sqlite:///keys.db”)\n\n\nconfig\nOptional\nNone\nOptional configuration (uses defaults if not provided)",
+    "crumbs": [
+      "core",
+      "Storage"
+    ]
+  },
+  {
+    "objectID": "core/types.html",
+    "href": "core/types.html",
+    "title": "Types",
+    "section": "",
+    "text": "source\n\n\n\n StorageBackend (value, names=None, module=None, qualname=None, type=None,\n                 start=1, boundary=None)\n\nAvailable storage backends for API keys\n\nsource\n\n\n\n\n APIKey (provider:str, encrypted_value:bytes,\n         created_at:datetime.datetime=&lt;factory&gt;,\n         expires_at:Optional[datetime.datetime]=None,\n         user_id:Optional[str]=None)\n\nRepresents an encrypted API key with metadata",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "core/types.html#storage-types",
+    "href": "core/types.html#storage-types",
+    "title": "Types",
+    "section": "",
+    "text": "source\n\n\n\n StorageBackend (value, names=None, module=None, qualname=None, type=None,\n                 start=1, boundary=None)\n\nAvailable storage backends for API keys\n\nsource\n\n\n\n\n APIKey (provider:str, encrypted_value:bytes,\n         created_at:datetime.datetime=&lt;factory&gt;,\n         expires_at:Optional[datetime.datetime]=None,\n         user_id:Optional[str]=None)\n\nRepresents an encrypted API key with metadata",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "core/types.html#storage-protocol",
+    "href": "core/types.html#storage-protocol",
+    "title": "Types",
+    "section": "Storage Protocol",
+    "text": "Storage Protocol\n\nsource\n\nKeyStorage\n\n KeyStorage (*args, **kwargs)\n\nProtocol for key storage implementations",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "core/types.html#configuration",
+    "href": "core/types.html#configuration",
+    "title": "Types",
+    "section": "Configuration",
+    "text": "Configuration\n\nsource\n\nBYOKConfig\n\n BYOKConfig\n             (storage_backend:__main__.StorageBackend=&lt;StorageBackend.SESS\n             ION: 'session'&gt;, encryption_key:Optional[bytes]=None, default\n             _ttl:Optional[datetime.timedelta]=datetime.timedelta(days=1),\n             session_key_prefix:str='byok_',\n             db_table_name:str='user_api_keys', auto_cleanup:bool=True,\n             require_https:bool=True)\n\nConfiguration for the BYOK system",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "core/types.html#database-schema",
+    "href": "core/types.html#database-schema",
+    "title": "Types",
+    "section": "Database Schema",
+    "text": "Database Schema\n\nsource\n\nUserAPIKey\n\n UserAPIKey ()\n\nDatabase schema for persistent API key storage (for use with fastsql)",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "core/types.html#exceptions",
+    "href": "core/types.html#exceptions",
+    "title": "Types",
+    "section": "Exceptions",
+    "text": "Exceptions\n\nsource\n\nSecurityWarning\nSecurity-related warning\n\nsource\n\n\nKeyNotFoundError\nRequested key not found\n\nsource\n\n\nStorageError\nError during storage operations\n\nsource\n\n\nEncryptionError\nError during encryption/decryption\n\nsource\n\n\nBYOKException\nBase exception for BYOK errors",
+    "crumbs": [
+      "core",
+      "Types"
+    ]
+  },
+  {
+    "objectID": "components/forms.html",
+    "href": "components/forms.html",
+    "title": "Forms",
+    "section": "",
+    "text": "source\n\n\n\n KeyInputForm (provider:str, action:Optional[str]=None, method:str='post',\n               show_help:bool=True, custom_placeholder:Optional[str]=None,\n               extra_fields:Optional[List[tuple]]=None,\n               provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a form for inputting an API key with improved design.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nThe API provider identifier\n\n\naction\nOptional\nNone\nForm action URL (defaults to /api/keys/{provider})\n\n\nmethod\nstr\npost\nHTTP method (default: “post”)\n\n\nshow_help\nbool\nTrue\nWhether to show help text\n\n\ncustom_placeholder\nOptional\nNone\nCustom placeholder text\n\n\nextra_fields\nOptional\nNone\nAdditional form fields as [(name, type, placeholder, required), …]\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nFastHTML Form component\n\n\n\n\ntest_func = KeyInputForm\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Test with a custom provider\n    return create_test_page(test_func.__doc__.title().split('.')[0].strip(), \n                           test_func(provider=\"my_custom_service\"))\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#basic-key-input-form",
+    "href": "components/forms.html#basic-key-input-form",
+    "title": "Forms",
+    "section": "",
+    "text": "source\n\n\n\n KeyInputForm (provider:str, action:Optional[str]=None, method:str='post',\n               show_help:bool=True, custom_placeholder:Optional[str]=None,\n               extra_fields:Optional[List[tuple]]=None,\n               provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a form for inputting an API key with improved design.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nThe API provider identifier\n\n\naction\nOptional\nNone\nForm action URL (defaults to /api/keys/{provider})\n\n\nmethod\nstr\npost\nHTTP method (default: “post”)\n\n\nshow_help\nbool\nTrue\nWhether to show help text\n\n\ncustom_placeholder\nOptional\nNone\nCustom placeholder text\n\n\nextra_fields\nOptional\nNone\nAdditional form fields as [(name, type, placeholder, required), …]\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nFastHTML Form component\n\n\n\n\ntest_func = KeyInputForm\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Test with a custom provider\n    return create_test_page(test_func.__doc__.title().split('.')[0].strip(), \n                           test_func(provider=\"my_custom_service\"))\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#multi-provider-key-form",
+    "href": "components/forms.html#multi-provider-key-form",
+    "title": "Forms",
+    "section": "Multi-Provider Key Form",
+    "text": "Multi-Provider Key Form\n\nsource\n\nMultiProviderKeyForm\n\n MultiProviderKeyForm (providers:List[str], action:str='/api/keys',\n                       method:str='post',\n                       default_provider:Optional[str]=None,\n                       provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a form that allows selecting from multiple providers with enhanced UX.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nproviders\nList\n\nList of provider identifiers\n\n\naction\nstr\n/api/keys\nForm action URL\n\n\nmethod\nstr\npost\nHTTP method\n\n\ndefault_provider\nOptional\nNone\nInitially selected provider\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nFastHTML Form component with provider selection\n\n\n\n\ntest_func = MultiProviderKeyForm\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Test with custom provider names\n    providers = ['my_llm_api', 'custom_service', 'another_provider']\n    return create_test_page(test_func.__doc__.title().split('.')[0].strip(), \n                           test_func(providers))\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#key-management-card",
+    "href": "components/forms.html#key-management-card",
+    "title": "Forms",
+    "section": "Key Management Card",
+    "text": "Key Management Card\n\nsource\n\nKeyManagementCard\n\n KeyManagementCard (provider:str, has_key:bool,\n                    masked_key:Optional[str]=None,\n                    created_at:Optional[str]=None,\n                    expires_at:Optional[str]=None,\n                    delete_action:Optional[str]=None,\n                    update_action:Optional[str]=None,\n                    provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a card component for managing a stored API key with enhanced design.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider identifier\n\n\nhas_key\nbool\n\nWhether a key is stored\n\n\nmasked_key\nOptional\nNone\nMasked version of the key for display\n\n\ncreated_at\nOptional\nNone\nWhen the key was stored\n\n\nexpires_at\nOptional\nNone\nWhen the key expires\n\n\ndelete_action\nOptional\nNone\nURL for delete action\n\n\nupdate_action\nOptional\nNone\nURL for update action\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nCard component for key management\n\n\n\n\ntest_func = KeyManagementCard\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Test with custom provider and optional config\n    custom_config = {\n        'api_service': {\n            'name': 'My API Service',\n            'placeholder': 'Enter your API key here...'\n        }\n    }\n    return create_test_page(test_func.__doc__.title().split('.')[0].strip(), \n                           test_func(\n                               provider=\"api_service\",\n                               has_key=True,\n                               masked_key=\"key-...xyz\",\n                               created_at=\"2 hours ago\",\n                               provider_config=custom_config\n                           ))\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#key-manager-dashboard",
+    "href": "components/forms.html#key-manager-dashboard",
+    "title": "Forms",
+    "section": "Key Manager Dashboard",
+    "text": "Key Manager Dashboard\n\nsource\n\nKeyManagerDashboard\n\n KeyManagerDashboard (request, providers:List[str], byok_manager=None,\n                      user_id:Optional[str]=None,\n                      base_url:str='/api/keys',\n                      provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a complete dashboard for managing multiple API keys with improved layout.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nrequest\n\n\nFastHTML request object\n\n\nproviders\nList\n\nList of provider identifiers to manage\n\n\nbyok_manager\nNoneType\nNone\n\n\n\nuser_id\nOptional\nNone\nOptional user ID for database storage\n\n\nbase_url\nstr\n/api/keys\nBase URL for API endpoints\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nDashboard component with all provider cards\n\n\n\n\n# Test using the actual KeyManagerDashboard function\ntest_func = KeyManagerDashboard\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Create a mock request object\n    class MockRequest:\n        def __init__(self):\n            self.scope = {}\n    \n    request = MockRequest()\n    \n    # Test with custom providers and optional config\n    providers = [\"llm_service\", \"embedding_api\", \"vector_db\", \"search_api\", \"analytics\", \"monitoring\"]\n    \n    # Optional: provide custom config for some providers\n    provider_config = {\n        'llm_service': {\n            'name': 'LLM Service',\n            'placeholder': 'Enter your LLM API key'\n        },\n        'embedding_api': {\n            'name': 'Embedding API',\n            'placeholder': 'Your embedding API key'\n        }\n        # Other providers will use auto-generated defaults\n    }\n    \n    # Create the dashboard using the actual function\n    dashboard = KeyManagerDashboard(\n        request=request,\n        providers=providers,\n        byok_manager=None,  # No manager, so all will show as no key\n        base_url=\"/api/keys\",\n        provider_config=provider_config\n    )\n    \n    return create_test_page(\"Key Manager Dashboard (Using Function)\", dashboard)\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#inline-key-input",
+    "href": "components/forms.html#inline-key-input",
+    "title": "Forms",
+    "section": "Inline Key Input",
+    "text": "Inline Key Input\n\nsource\n\nInlineKeyInput\n\n InlineKeyInput (provider:str, input_id:Optional[str]=None,\n                 on_save:Optional[str]=None, compact:bool=True,\n                 provider_config:Optional[Dict[str,Any]]=None)\n\nCreate a compact inline key input component with polished design.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider identifier\n\n\ninput_id\nOptional\nNone\nHTML ID for the input element\n\n\non_save\nOptional\nNone\nJavaScript to execute on save (or hx-post URL for HTMX)\n\n\ncompact\nbool\nTrue\nWhether to use compact styling\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nFT\n\nInline input component\n\n\n\n\ntest_func = InlineKeyInput\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    # Test with custom provider\n    return create_test_page(test_func.__doc__.title().split('.')[0].strip(), \n                           test_func(\n                               provider=\"custom_backend\",\n                               on_save=\"/api/keys/custom_backend/quick-save\"\n                           ))\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "components/forms.html#tests",
+    "href": "components/forms.html#tests",
+    "title": "Forms",
+    "section": "Tests",
+    "text": "Tests\n\n# Test basic key input form with custom provider\nform = KeyInputForm(provider=\"my_service\")\nassert form.tag == \"form\"\nassert form.attrs['method'] == \"post\"\nassert form.attrs['action'] == \"/api/keys/my_service\"\nprint(\"✓ Basic key input form\")\n\n# Test with provider config\nconfig = {\n    'openai': {\n        'name': 'OpenAI GPT',\n        'placeholder': 'sk-...'\n    }\n}\nform_with_config = KeyInputForm(provider=\"openai\", provider_config=config)\nassert form_with_config.tag == \"form\"\nprint(\"✓ Key input form with config\")\n\n# Test multi-provider form\nmulti_form = MultiProviderKeyForm(\n    providers=[\"service_a\", \"service_b\", \"service_c\"],\n    default_provider=\"service_b\"\n)\nassert multi_form.tag == \"form\"\nprint(\"✓ Multi-provider form\")\n\n# Test key management card with custom provider\ncard_with_key = KeyManagementCard(\n    provider=\"custom_api\",\n    has_key=True,\n    masked_key=\"key-...abc\",\n    created_at=\"2 hours ago\"\n)\nassert card_with_key.tag == \"div\"\nprint(\"✓ Key management card with key\")\n\ncard_without_key = KeyManagementCard(\n    provider=\"another_service\",\n    has_key=False,\n    update_action=\"/api/keys/another_service\"\n)\nassert card_without_key.tag == \"div\"\nprint(\"✓ Key management card without key\")\n\n# Test inline input with custom provider\ninline = InlineKeyInput(\n    provider=\"my_llm_service\",\n    on_save=\"/api/keys/my_llm_service/quick-save\"\n)\nassert inline.tag == \"div\"\nprint(\"✓ Inline key input\")\n\nprint(\"\\nAll form component tests passed!\")\n\n✓ Basic key input form\n✓ Key input form with config\n✓ Multi-provider form\n✓ Key management card with key\n✓ Key management card without key\n✓ Inline key input\n\nAll form component tests passed!",
+    "crumbs": [
+      "components",
+      "Forms"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html",
+    "href": "middleware/beforeware.html",
+    "title": "Beforeware",
+    "section": "",
+    "text": "source\n\n\n\n create_byok_beforeware\n                         (byok_manager:cjm_fasthtml_byok.core.storage.BYOK\n                         Manager)\n\nCreate a FastHTML beforeware handler for BYOK functionality.\n\n\n\n\nType\nDetails\n\n\n\n\nbyok_manager\nBYOKManager\nThe BYOK manager instance",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html#beforeware-functions",
+    "href": "middleware/beforeware.html#beforeware-functions",
+    "title": "Beforeware",
+    "section": "",
+    "text": "source\n\n\n\n create_byok_beforeware\n                         (byok_manager:cjm_fasthtml_byok.core.storage.BYOK\n                         Manager)\n\nCreate a FastHTML beforeware handler for BYOK functionality.\n\n\n\n\nType\nDetails\n\n\n\n\nbyok_manager\nBYOKManager\nThe BYOK manager instance",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html#route-decorators",
+    "href": "middleware/beforeware.html#route-decorators",
+    "title": "Beforeware",
+    "section": "Route Decorators",
+    "text": "Route Decorators\n\nsource\n\nrequire_api_key\n\n require_api_key (provider:str, user_id_func:Optional[Callable]=None)\n\nDecorator that requires an API key to be present for a route.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nThe provider name to check for\n\n\nuser_id_func\nOptional\nNone\nOptional function to get user_id from request Usage: @rt @require_api_key(“openai”) def chat(request): byok = request.scope[‘byok’] api_key = byok.get_key(request, “openai”) # Use the API key…\n\n\n\n\nsource\n\n\nrequire_any_api_key\n\n require_any_api_key (providers:List[str],\n                      user_id_func:Optional[Callable]=None)\n\nDecorator that requires at least one of the specified API keys.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nproviders\nList\n\nList of provider names to check\n\n\nuser_id_func\nOptional\nNone\nOptional function to get user_id from request Usage: @rt @require_any_api_key([“openai”, “anthropic”, “google”]) def chat(request): # Use whichever API key is available pass",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html#security-beforeware",
+    "href": "middleware/beforeware.html#security-beforeware",
+    "title": "Beforeware",
+    "section": "Security Beforeware",
+    "text": "Security Beforeware\n\nsource\n\nSecurityCheckBeforeware\n\n SecurityCheckBeforeware (require_https:bool=True,\n                          is_production:Optional[bool]=None)\n\nBeforeware that performs security checks.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nrequire_https\nbool\nTrue\nWhether to require HTTPS in production\n\n\nis_production\nOptional\nNone\nWhether running in production (auto-detected if None)",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html#cleanup-beforeware",
+    "href": "middleware/beforeware.html#cleanup-beforeware",
+    "title": "Beforeware",
+    "section": "Cleanup Beforeware",
+    "text": "Cleanup Beforeware\n\nsource\n\nCleanupBeforeware\n\n CleanupBeforeware\n                    (byok_manager:cjm_fasthtml_byok.core.storage.BYOKManag\n                    er, user_id_func:Optional[Callable]=None)\n\nBeforeware that cleans up expired keys.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nbyok_manager\nBYOKManager\n\nThe BYOK manager instance\n\n\nuser_id_func\nOptional\nNone\nOptional function to get user_id from request",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "middleware/beforeware.html#complete-setup-helper",
+    "href": "middleware/beforeware.html#complete-setup-helper",
+    "title": "Beforeware",
+    "section": "Complete Setup Helper",
+    "text": "Complete Setup Helper\n\nsource\n\nsetup_byok\n\n setup_byok (secret_key:str, db:Optional[Any]=None,\n             user_id_func:Optional[Callable]=None,\n             enable_security_checks:bool=True, enable_cleanup:bool=True)\n\nComplete setup helper for BYOK with FastHTML. Returns beforeware functions and the BYOK manager.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsecret_key\nstr\n\nApplication secret key\n\n\ndb\nOptional\nNone\nOptional database for persistent storage\n\n\nuser_id_func\nOptional\nNone\nOptional function to get user_id from request\n\n\nenable_security_checks\nbool\nTrue\nEnable HTTPS checking\n\n\nenable_cleanup\nbool\nTrue\nEnable automatic cleanup of expired keys",
+    "crumbs": [
+      "middleware",
+      "Beforeware"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html",
+    "href": "utils/helpers.html",
+    "title": "Helpers",
+    "section": "",
+    "text": "source\n\n\n\n get_provider_info (provider:str,\n                    provider_config:Optional[Dict[str,Any]]=None)\n\nGet provider information from config or generate defaults.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider identifier\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nDict\n\nProvider info dict with defaults",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html#provider-helpers",
+    "href": "utils/helpers.html#provider-helpers",
+    "title": "Helpers",
+    "section": "",
+    "text": "source\n\n\n\n get_provider_info (provider:str,\n                    provider_config:Optional[Dict[str,Any]]=None)\n\nGet provider information from config or generate defaults.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider identifier\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nDict\n\nProvider info dict with defaults",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html#format-helpers",
+    "href": "utils/helpers.html#format-helpers",
+    "title": "Helpers",
+    "section": "Format Helpers",
+    "text": "Format Helpers\n\nsource\n\nformat_provider_name\n\n format_provider_name (provider:str,\n                       provider_config:Optional[Dict[str,Any]]=None)\n\nFormat provider name for display.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider identifier\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nstr\n\nFormatted provider name\n\n\n\n\nsource\n\n\nformat_key_age\n\n format_key_age (created_at:datetime.datetime)\n\nFormat the age of a key for display.\n\n\n\n\nType\nDetails\n\n\n\n\ncreated_at\ndatetime\nWhen the key was created\n\n\nReturns\nstr\nHuman-readable age string\n\n\n\n\nsource\n\n\nformat_expiration\n\n format_expiration (expires_at:Optional[datetime.datetime])\n\nFormat expiration time for display.\n\n\n\n\nType\nDetails\n\n\n\n\nexpires_at\nOptional\nExpiration datetime\n\n\nReturns\nstr\nHuman-readable expiration string",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html#key-summary",
+    "href": "utils/helpers.html#key-summary",
+    "title": "Helpers",
+    "section": "Key Summary",
+    "text": "Key Summary\n\nsource\n\nget_key_summary\n\n get_key_summary (byok_manager, request, user_id:Optional[str]=None,\n                  provider_config:Optional[Dict[str,Any]]=None)\n\nGet a summary of all stored keys.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nbyok_manager\n\n\nBYOK manager instance\n\n\nrequest\n\n\nFastHTML request\n\n\nuser_id\nOptional\nNone\nOptional user ID\n\n\nprovider_config\nOptional\nNone\nOptional provider configuration\n\n\nReturns\nDict\n\nSummary dictionary with provider info",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html#environment-helpers",
+    "href": "utils/helpers.html#environment-helpers",
+    "title": "Helpers",
+    "section": "Environment Helpers",
+    "text": "Environment Helpers\n\nsource\n\nget_env_key\n\n get_env_key (provider:str, env_prefix:str='API_KEY_')\n\nGet an API key from environment variables.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider name\n\n\nenv_prefix\nstr\nAPI_KEY_\nEnvironment variable prefix\n\n\nReturns\nOptional\n\nAPI key from environment or None\n\n\n\n\nsource\n\n\nimport_from_env\n\n import_from_env (byok_manager, request, providers:List[str],\n                  user_id:Optional[str]=None, env_prefix:str='API_KEY_')\n\nImport API keys from environment variables.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nbyok_manager\n\n\nBYOK manager instance\n\n\nrequest\n\n\nFastHTML request\n\n\nproviders\nList\n\nList of providers to check\n\n\nuser_id\nOptional\nNone\nOptional user ID\n\n\nenv_prefix\nstr\nAPI_KEY_\nEnvironment variable prefix\n\n\nReturns\nDict\n\nDict of provider: success status",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "utils/helpers.html#tests",
+    "href": "utils/helpers.html#tests",
+    "title": "Helpers",
+    "section": "Tests",
+    "text": "Tests\n\n# Test provider info with no config\ninfo = get_provider_info('my_custom_provider')\nassert info['name'] == 'My Custom Provider'\nassert info['placeholder'] == 'Enter your My Custom Provider API key'\nprint(f\"✓ Provider info (no config): {info['name']}\")\n\n# Test with custom config\ncustom_config = {\n    'openai': {\n        'name': 'OpenAI GPT',\n        'key_prefix': 'sk-',\n        'docs_url': 'https://platform.openai.com/api-keys',\n        'placeholder': 'sk-...'\n    }\n}\ninfo = get_provider_info('openai', custom_config)\nassert info['name'] == 'OpenAI GPT'\nassert info['key_prefix'] == 'sk-'\nprint(f\"✓ Provider info (with config): {info['name']}\")\n\n# Test formatting\nassert format_provider_name('test_provider') == 'Test Provider'\nassert format_provider_name('api-service') == 'Api Service'\nprint(\"✓ Provider name formatting\")\n\n# Test age formatting\nnow = datetime.now()\nassert format_key_age(now) == \"Just now\"\nassert format_key_age(now - timedelta(hours=2)) == \"2 hours ago\"\nassert format_key_age(now - timedelta(days=5)) == \"5 days ago\"\nprint(\"✓ Age formatting\")\n\n# Test expiration formatting\nassert format_expiration(None) == \"Never\"\nassert format_expiration(now - timedelta(hours=1)) == \"Expired\"\nassert \"Expires in\" in format_expiration(now + timedelta(hours=5))\nprint(\"✓ Expiration formatting\")\n\n✓ Provider info (no config): My Custom Provider\n✓ Provider info (with config): OpenAI GPT\n✓ Provider name formatting\n✓ Age formatting\n✓ Expiration formatting",
+    "crumbs": [
+      "utils",
+      "Helpers"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html",
+    "href": "components/alerts.html",
+    "title": "Alerts",
+    "section": "",
+    "text": "source\n\n\n\n ErrorIcon (size:str='6')\n\nCreate an error/X icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the error icon\n\n\n\n\nsource\n\n\n\n\n WarningIcon (size:str='6')\n\nCreate a warning/exclamation icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the warning icon\n\n\n\n\nsource\n\n\n\n\n SuccessIcon (size:str='6')\n\nCreate a success/check icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the success icon\n\n\n\n\nsource\n\n\n\n\n InfoIcon (size:str='6')\n\nCreate an info icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the info icon",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#icon-components",
+    "href": "components/alerts.html#icon-components",
+    "title": "Alerts",
+    "section": "",
+    "text": "source\n\n\n\n ErrorIcon (size:str='6')\n\nCreate an error/X icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the error icon\n\n\n\n\nsource\n\n\n\n\n WarningIcon (size:str='6')\n\nCreate a warning/exclamation icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the warning icon\n\n\n\n\nsource\n\n\n\n\n SuccessIcon (size:str='6')\n\nCreate a success/check icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the success icon\n\n\n\n\nsource\n\n\n\n\n InfoIcon (size:str='6')\n\nCreate an info icon SVG.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nsize\nstr\n6\nSize of the icon (matches Tailwind h-{size} and w-{size} classes)\n\n\nReturns\nFT\n\nSVG element for the info icon",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#basic-alert-component",
+    "href": "components/alerts.html#basic-alert-component",
+    "title": "Alerts",
+    "section": "Basic Alert Component",
+    "text": "Basic Alert Component\n\nsource\n\nAlert\n\n Alert (message:str,\n        kind:Literal['info','success','warning','error']='info',\n        title:Optional[str]=None, dismissible:bool=False,\n        show_icon:bool=True, style:Optional[str]=None,\n        id:Optional[str]=None)\n\nCreate an alert component for displaying messages.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nmessage\nstr\n\nThe alert message\n\n\nkind\nLiteral\ninfo\n\n\n\ntitle\nOptional\nNone\nOptional title for the alert\n\n\ndismissible\nbool\nFalse\nWhether the alert can be dismissed\n\n\nshow_icon\nbool\nTrue\nWhether to show an icon\n\n\nstyle\nOptional\nNone\nAlert style (“soft”, “outline”, or None for default)\n\n\nid\nOptional\nNone\nHTML ID for the alert element\n\n\nReturns\nFT\n\nAlert component\n\n\n\n\ntest_func = Alert\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction\n    alerts = [\n        Alert(\"This is an info alert\", kind=\"info\"),\n        Alert(\"Operation successful!\", kind=\"success\", title=\"Success\"),\n        Alert(\"Please review your input\", kind=\"warning\", dismissible=True, id=\"warn1\"),\n        Alert(\"An error occurred\", kind=\"error\", style=\"soft\")\n    ]\n    return create_test_page(\n        \"Alert Examples\",\n        Div(*alerts, cls=combine_classes(flex_display, flex_direction.col, gap._4))\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#security-specific-alerts",
+    "href": "components/alerts.html#security-specific-alerts",
+    "title": "Alerts",
+    "section": "Security-Specific Alerts",
+    "text": "Security-Specific Alerts\n\nsource\n\nSecurityAlert\n\n SecurityAlert (message:str,\n                severity:Literal['low','medium','high','critical']='medium\n                ', action_url:Optional[str]=None, action_text:str='Fix\n                Now')\n\nCreate a security-focused alert with severity levels.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nmessage\nstr\n\nSecurity alert message\n\n\nseverity\nLiteral\nmedium\n\n\n\naction_url\nOptional\nNone\nOptional URL for remediation action\n\n\naction_text\nstr\nFix Now\nText for the action button\n\n\nReturns\nFT\n\nSecurity alert component\n\n\n\n\ntest_func = SecurityAlert\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction\n    alerts = [\n        SecurityAlert(\"Consider enabling HTTPS for production\", severity=\"low\"),\n        SecurityAlert(\"API keys transmitted over HTTP\", severity=\"high\", action_url=\"/settings/security\")\n    ]\n    return create_test_page(\n        \"Security Alert Examples\",\n        Div(*alerts, cls=combine_classes(flex_display, flex_direction.col, gap._4))\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#key-status-notifications",
+    "href": "components/alerts.html#key-status-notifications",
+    "title": "Alerts",
+    "section": "Key Status Notifications",
+    "text": "Key Status Notifications\n\nsource\n\nKeyStatusNotification\n\n KeyStatusNotification (provider:str,\n                        status:Literal['added','updated','deleted','expire\n                        d','invalid'], masked_key:Optional[str]=None,\n                        auto_dismiss:bool=True, dismiss_after:int=5000)\n\nCreate a notification for API key status changes.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nprovider\nstr\n\nProvider name\n\n\nstatus\nLiteral\n\n\n\n\nmasked_key\nOptional\nNone\nMasked version of the key\n\n\nauto_dismiss\nbool\nTrue\nWhether to auto-dismiss\n\n\ndismiss_after\nint\n5000\nMilliseconds before auto-dismiss\n\n\nReturns\nFT\n\nKey status notification component\n\n\n\n\ntest_func = KeyStatusNotification\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction\n    notifications = [\n        KeyStatusNotification(\"openai\", \"added\", masked_key=\"sk-...xyz\"),\n        KeyStatusNotification(\"anthropic\", \"expired\"),\n        KeyStatusNotification(\"google\", \"invalid\")\n    ]\n    return create_test_page(\n        \"Key Status Notifications\",\n        Div(*notifications, cls=combine_classes(flex_display, flex_direction.col, gap._4))\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#toast-notifications",
+    "href": "components/alerts.html#toast-notifications",
+    "title": "Alerts",
+    "section": "Toast Notifications",
+    "text": "Toast Notifications\n\nsource\n\nToastContainer\n\n ToastContainer (position:Literal['top','middle','bottom']='top',\n                 align:Literal['start','center','end']='end',\n                 id:str='toast-container')\n\nCreate a container for toast notifications.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nposition\nLiteral\ntop\n\n\n\nalign\nLiteral\nend\n\n\n\nid\nstr\ntoast-container\nHTML ID for the container\n\n\nReturns\nFT\n\nToast container component\n\n\n\n\nsource\n\n\nToast\n\n Toast (message:str,\n        kind:Literal['info','success','warning','error']='info',\n        duration:int=3000)\n\nCreate a toast notification.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nmessage\nstr\n\nToast message\n\n\nkind\nLiteral\ninfo\n\n\n\nduration\nint\n3000\nDuration in milliseconds\n\n\nReturns\nFT\n\nToast notification component\n\n\n\n\nToast(\"API key saved!\", kind=\"success\")\n\n&lt;div id=\"toast-139483155685168\"&gt;\n  &lt;div role=\"alert\" class=\"alert alert-success\"&gt;\n&lt;svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"none\" class=\"stroke-success-content h-6 w-6 shrink-0\"&gt;&lt;path d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"&gt;&lt;/path&gt;&lt;/svg&gt;    &lt;div&gt;\n&lt;span&gt;API key saved!&lt;/span&gt;    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;script&gt;setTimeout(() =&gt; document.getElementById('toast-139483155685168')?.remove(), 3000);&lt;/script&gt;&lt;/div&gt;\n\n\n\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    return create_test_page(\n        \"Toast Examples\",\n        Div(\n            ToastContainer(position=\"top\", align=\"end\"),\n            Div(\n                Toast(\"API key saved!\", kind=\"success\"),\n                Toast(\"Please check your input\", kind=\"warning\"),\n                cls=combine_classes(toast, toast_placement.top, toast_placement.end)\n            )\n        )\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#inline-validation-messages",
+    "href": "components/alerts.html#inline-validation-messages",
+    "title": "Alerts",
+    "section": "Inline Validation Messages",
+    "text": "Inline Validation Messages\n\nsource\n\nValidationMessage\n\n ValidationMessage (message:str, is_valid:bool=False, show_icon:bool=True)\n\nCreate an inline validation message for form fields.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nmessage\nstr\n\nValidation message\n\n\nis_valid\nbool\nFalse\nWhether the validation passed\n\n\nshow_icon\nbool\nTrue\nWhether to show an icon\n\n\nReturns\nFT\n\nValidation message component\n\n\n\n\ntest_func = ValidationMessage\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    from fasthtml.common import Input, Label\n    from cjm_fasthtml_daisyui.components.data_input.text_input import text_input, text_input_colors\n    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import flex_direction\n    \n    return create_test_page(\n        \"Validation Messages\",\n        Div(\n            Div(\n                Label(\"Valid API Key\"),\n                Input(\n                    type=\"password\",\n                    value=\"sk-1234567890abcdef\",\n                    cls=combine_classes(text_input, text_input_colors.success)\n                ),\n                ValidationMessage(\"API key format is valid\", is_valid=True)\n            ),\n            Div(\n                Label(\"Invalid API Key\"),\n                Input(\n                    type=\"password\",\n                    value=\"invalid-key\",\n                    cls=combine_classes(text_input, text_input_colors.error)\n                ),\n                ValidationMessage(\"API key format is incorrect\", is_valid=False)\n            ),\n            cls=combine_classes(flex_display, flex_direction.col, gap._6)\n        )\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#alert-stack-manager",
+    "href": "components/alerts.html#alert-stack-manager",
+    "title": "Alerts",
+    "section": "Alert Stack Manager",
+    "text": "Alert Stack Manager\n\nsource\n\nAlertStack\n\n AlertStack (alerts:list, max_visible:int=3, spacing:str='4')\n\nCreate a stack of alerts with optional limit.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nalerts\nlist\n\nList of alert components\n\n\nmax_visible\nint\n3\nMaximum number of visible alerts\n\n\nspacing\nstr\n4\nGap between alerts\n\n\nReturns\nFT\n\nAlert stack component\n\n\n\n\ntest_func = AlertStack\napp, rt = create_test_app(theme=DaisyUITheme.LIGHT)\n\n@rt\ndef index():\n    test_alerts = [\n        Alert(\"First alert\", kind=\"info\"),\n        Alert(\"Second alert\", kind=\"success\"),\n        Alert(\"Third alert\", kind=\"warning\"),\n        Alert(\"Fourth alert (hidden)\", kind=\"error\"),\n        Alert(\"Fifth alert (hidden)\", kind=\"info\")\n    ]\n    \n    return create_test_page(\n        \"Alert Stack\",\n        AlertStack(test_alerts, max_visible=3)\n    )\n\nserver = start_test_server(app)\ndisplay(HTMX())\nserver.stop()",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "components/alerts.html#tests",
+    "href": "components/alerts.html#tests",
+    "title": "Alerts",
+    "section": "Tests",
+    "text": "Tests\n\n# Test basic alert\nbasic_alert = Alert(\"Test message\", kind=\"info\")\nassert basic_alert.tag == \"div\"\nassert basic_alert.attrs['role'] == \"alert\"\nprint(\"✓ Basic alert\")\n\n# Test dismissible alert\ndismiss_alert = Alert(\"Dismissible\", dismissible=True, id=\"test-alert\")\nassert any(\"button\" in str(child.tag) for child in dismiss_alert.children if hasattr(child, 'tag'))\nprint(\"✓ Dismissible alert\")\n\n# Test security alert\nsec_alert = SecurityAlert(\"Security issue\", severity=\"high\")\nassert sec_alert.tag == \"div\"\nprint(\"✓ Security alert\")\n\n# Test key notification\nkey_notif = KeyStatusNotification(\"openai\", \"added\", masked_key=\"sk-...\")\nassert key_notif.tag == \"div\"\nprint(\"✓ Key status notification\")\n\n# Test validation message\nval_msg = ValidationMessage(\"Valid input\", is_valid=True)\nassert val_msg.tag == \"div\"\nprint(\"✓ Validation message\")\n\n# Test toast container\ntoast_cont = ToastContainer(position=\"top\", align=\"end\")\nassert toast_cont.tag == \"div\"\nprint(\"✓ Toast container\")\n\n# Test alert stack\nalerts = [Alert(f\"Alert {i}\", kind=\"info\") for i in range(5)]\nstack = AlertStack(alerts, max_visible=3)\nassert stack.tag == \"div\"\nassert len(stack.children) &gt; 3  # Has hidden alerts\nprint(\"✓ Alert stack\")\n\nprint(\"\\nAll alert component tests passed!\")\n\n✓ Basic alert\n✓ Dismissible alert\n✓ Security alert\n✓ Key status notification\n✓ Validation message\n✓ Toast container\n✓ Alert stack\n\nAll alert component tests passed!",
+    "crumbs": [
+      "components",
+      "Alerts"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "cjm-fasthtml-byok",
+    "section": "",
+    "text": "pip install cjm_fasthtml_byok",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "cjm-fasthtml-byok",
+    "section": "",
+    "text": "pip install cjm_fasthtml_byok",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "index.html#project-structure",
+    "href": "index.html#project-structure",
+    "title": "cjm-fasthtml-byok",
+    "section": "Project Structure",
+    "text": "Project Structure\nnbs/\n├── components/ (2)\n│   ├── alerts.ipynb  # FastHTML alert and notification components for user feedback\n│   └── forms.ipynb   # FastHTML form components for API key input and management\n├── core/ (3)\n│   ├── security.ipynb  # Encryption and security utilities for API key management\n│   ├── storage.ipynb   # Storage backends for API keys (session and database)\n│   └── types.ipynb     # Type definitions and protocols for the BYOK system\n├── middleware/ (1)\n│   └── beforeware.ipynb  # FastHTML beforeware for API key management\n└── utils/ (1)\n    └── helpers.ipynb  # Helper functions for BYOK system\nTotal: 7 notebooks across 4 directories",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "index.html#module-dependencies",
+    "href": "index.html#module-dependencies",
+    "title": "cjm-fasthtml-byok",
+    "section": "Module Dependencies",
+    "text": "Module Dependencies\ngraph LR\n    components_alerts[components.alerts&lt;br/&gt;Alerts]\n    components_forms[components.forms&lt;br/&gt;Forms]\n    core_security[core.security&lt;br/&gt;Security]\n    core_storage[core.storage&lt;br/&gt;Storage]\n    core_types[core.types&lt;br/&gt;Types]\n    middleware_beforeware[middleware.beforeware&lt;br/&gt;Beforeware]\n    utils_helpers[utils.helpers&lt;br/&gt;Helpers]\n\n    components_forms --&gt; core_security\n    components_forms --&gt; utils_helpers\n    core_security --&gt; core_types\n    core_storage --&gt; core_types\n    core_storage --&gt; core_security\n    middleware_beforeware --&gt; core_security\n    middleware_beforeware --&gt; core_types\n    middleware_beforeware --&gt; core_storage\n    utils_helpers --&gt; core_security\n9 cross-module dependencies detected",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "index.html#cli-reference",
+    "href": "index.html#cli-reference",
+    "title": "cjm-fasthtml-byok",
+    "section": "CLI Reference",
+    "text": "CLI Reference\nNo CLI commands found in this project.",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "index.html#module-overview",
+    "href": "index.html#module-overview",
+    "title": "cjm-fasthtml-byok",
+    "section": "Module Overview",
+    "text": "Module Overview\nDetailed documentation for each module in the project:\n\nAlerts (alerts.ipynb)\n\nFastHTML alert and notification components for user feedback\n\n\nImport\nfrom cjm_fasthtml_byok.components.alerts import (\n    InfoIcon,\n    SuccessIcon,\n    WarningIcon,\n    ErrorIcon,\n    Alert,\n    SecurityAlert,\n    KeyStatusNotification,\n    ToastContainer,\n    Toast,\n    ValidationMessage,\n    AlertStack\n)\n\n\nFunctions\ndef InfoIcon(\n    size: str = \"6\"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)\n) -&gt; FT:  # SVG element for the info icon\n    \"Create an info icon SVG.\"\ndef SuccessIcon(\n    size: str = \"6\"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)\n) -&gt; FT:  # SVG element for the success icon\n    \"Create a success/check icon SVG.\"\ndef WarningIcon(\n    size: str = \"6\"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)\n) -&gt; FT:  # SVG element for the warning icon\n    \"Create a warning/exclamation icon SVG.\"\ndef ErrorIcon(\n    size: str = \"6\"  # Size of the icon (matches Tailwind h-{size} and w-{size} classes)\n) -&gt; FT:  # SVG element for the error icon\n    \"Create an error/X icon SVG.\"\ndef Alert(\n    message: str,  # The alert message\n    kind: Literal[\"info\", \"success\", \"warning\", \"error\"] = \"info\",\n    title: Optional[str] = None,  # Optional title for the alert\n    dismissible: bool = False,  # Whether the alert can be dismissed\n    show_icon: bool = True,  # Whether to show an icon\n    style: Optional[str] = None,  # Alert style (\"soft\", \"outline\", or None for default)\n    id: Optional[str] = None  # HTML ID for the alert element\n) -&gt; FT:  # Alert component\n    \"Create an alert component for displaying messages.\"\ndef SecurityAlert(\n    message: str,  # Security alert message\n    severity: Literal[\"low\", \"medium\", \"high\", \"critical\"] = \"medium\",\n    action_url: Optional[str] = None,  # Optional URL for remediation action\n    action_text: str = \"Fix Now\"  # Text for the action button\n) -&gt; FT:  # Security alert component\n    \"Create a security-focused alert with severity levels.\"\ndef KeyStatusNotification(\n    provider: str,  # Provider name\n    status: Literal[\"added\", \"updated\", \"deleted\", \"expired\", \"invalid\"],\n    masked_key: Optional[str] = None,  # Masked version of the key\n    auto_dismiss: bool = True,  # Whether to auto-dismiss\n    dismiss_after: int = 5000  # Milliseconds before auto-dismiss\n) -&gt; FT:  # Key status notification component\n    \"Create a notification for API key status changes.\"\ndef ToastContainer(\n    position: Literal[\"top\", \"middle\", \"bottom\"] = \"top\",\n    align: Literal[\"start\", \"center\", \"end\"] = \"end\",\n    id: str = \"toast-container\"  # HTML ID for the container\n) -&gt; FT:  # Toast container component\n    \"Create a container for toast notifications.\"\ndef Toast(\n    message: str,  # Toast message\n    kind: Literal[\"info\", \"success\", \"warning\", \"error\"] = \"info\",\n    duration: int = 3000  # Duration in milliseconds\n) -&gt; FT:  # Toast notification component\n    \"Create a toast notification.\"\ndef ValidationMessage(\n    message: str,  # Validation message\n    is_valid: bool = False,  # Whether the validation passed\n    show_icon: bool = True  # Whether to show an icon\n) -&gt; FT:  # Validation message component\n    \"Create an inline validation message for form fields.\"\ndef AlertStack(\n    alerts: list,  # List of alert components\n    max_visible: int = 3,  # Maximum number of visible alerts\n    spacing: str = \"4\"  # Gap between alerts\n) -&gt; FT:  # Alert stack component\n    \"Create a stack of alerts with optional limit.\"\n\n\n\nBeforeware (beforeware.ipynb)\n\nFastHTML beforeware for API key management\n\n\nImport\nfrom cjm_fasthtml_byok.middleware.beforeware import (\n    create_byok_beforeware,\n    require_api_key,\n    require_any_api_key,\n    SecurityCheckBeforeware,\n    CleanupBeforeware,\n    setup_byok\n)\n\n\nFunctions\ndef create_byok_beforeware(\n    byok_manager: BYOKManager  # The BYOK manager instance\n)\n    \"Create a FastHTML beforeware handler for BYOK functionality.\"\ndef require_api_key(\n    provider: str,  # The provider name to check for\n    user_id_func: Optional[Callable] = None  # Optional function to get user_id from request Usage: @rt @require_api_key(\"openai\") def chat(request): byok = request.scope['byok'] api_key = byok.get_key(request, \"openai\") # Use the API key...\n)\n    \"Decorator that requires an API key to be present for a route.\"\ndef require_any_api_key(\n    providers: List[str],  # List of provider names to check\n    user_id_func: Optional[Callable] = None  # Optional function to get user_id from request Usage: @rt @require_any_api_key([\"openai\", \"anthropic\", \"google\"]) def chat(request): # Use whichever API key is available pass\n)\n    \"Decorator that requires at least one of the specified API keys.\"\ndef setup_byok(\n    secret_key: str,  # Application secret key\n    db: Optional[Any] = None,  # Optional database for persistent storage\n    user_id_func: Optional[Callable] = None,  # Optional function to get user_id from request\n    enable_security_checks: bool = True,  # Enable HTTPS checking\n    enable_cleanup: bool = True  # Enable automatic cleanup of expired keys\n)\n    \"Complete setup helper for BYOK with FastHTML. Returns beforeware functions and the BYOK manager.\"\n\n\nClasses\nclass SecurityCheckBeforeware:\n    def __init__(\n        self,\n        require_https: bool = True,  # Whether to require HTTPS in production\n        is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)\n    )\n    \"Beforeware that performs security checks.\"\n    \n    def __init__(\n            self,\n            require_https: bool = True,  # Whether to require HTTPS in production\n            is_production: Optional[bool] = None  # Whether running in production (auto-detected if None)\n        )\n        \"Initialize security check beforeware with HTTPS requirements\"\nclass CleanupBeforeware:\n    def __init__(\n        self,\n        byok_manager: BYOKManager,  # The BYOK manager instance\n        user_id_func: Optional[Callable] = None  # Optional function to get user_id from request\n    )\n    \"Beforeware that cleans up expired keys.\"\n    \n    def __init__(\n            self,\n            byok_manager: BYOKManager,  # The BYOK manager instance\n            user_id_func: Optional[Callable] = None  # Optional function to get user_id from request\n        )\n        \"Initialize cleanup beforeware with BYOK manager\"\n\n\n\nForms (forms.ipynb)\n\nFastHTML form components for API key input and management\n\n\nImport\nfrom cjm_fasthtml_byok.components.forms import (\n    KeyInputForm,\n    MultiProviderKeyForm,\n    KeyManagementCard,\n    KeyManagerDashboard,\n    InlineKeyInput\n)\n\n\nFunctions\ndef KeyInputForm(\n    provider: str,  # The API provider identifier\n    action: Optional[str] = None,  # Form action URL (defaults to /api/keys/{provider})\n    method: str = \"post\",  # HTTP method (default: \"post\")\n    show_help: bool = True,  # Whether to show help text\n    custom_placeholder: Optional[str] = None,  # Custom placeholder text\n    extra_fields: Optional[List[tuple]] = None,  # Additional form fields as [(name, type, placeholder, required), ...]\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; FT:  # FastHTML Form component\n    \"Create a form for inputting an API key with improved design.\"\ndef MultiProviderKeyForm(\n    providers: List[str],  # List of provider identifiers\n    action: str = \"/api/keys\",  # Form action URL\n    method: str = \"post\",  # HTTP method\n    default_provider: Optional[str] = None,  # Initially selected provider\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; FT:  # FastHTML Form component with provider selection\n    \"Create a form that allows selecting from multiple providers with enhanced UX.\"\ndef KeyManagementCard(\n    provider: str,  # Provider identifier\n    has_key: bool,  # Whether a key is stored\n    masked_key: Optional[str] = None,  # Masked version of the key for display\n    created_at: Optional[str] = None,  # When the key was stored\n    expires_at: Optional[str] = None,  # When the key expires\n    delete_action: Optional[str] = None,  # URL for delete action\n    update_action: Optional[str] = None,  # URL for update action\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; FT:  # Card component for key management\n    \"Create a card component for managing a stored API key with enhanced design.\"\ndef KeyManagerDashboard(\n    request,  # FastHTML request object\n    providers: List[str],  # List of provider identifiers to manage\n    byok_manager = None,\n    user_id: Optional[str] = None,  # Optional user ID for database storage\n    base_url: str = \"/api/keys\",  # Base URL for API endpoints\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; FT:  # Dashboard component with all provider cards\n    \"Create a complete dashboard for managing multiple API keys with improved layout.\"\ndef InlineKeyInput(\n    provider: str,  # Provider identifier\n    input_id: Optional[str] = None,  # HTML ID for the input element\n    on_save: Optional[str] = None,  # JavaScript to execute on save (or hx-post URL for HTMX)\n    compact: bool = True,  # Whether to use compact styling\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; FT:  # Inline input component\n    \"Create a compact inline key input component with polished design.\"\n\n\n\nHelpers (helpers.ipynb)\n\nHelper functions for BYOK system\n\n\nImport\nfrom cjm_fasthtml_byok.utils.helpers import (\n    get_provider_info,\n    format_provider_name,\n    format_key_age,\n    format_expiration,\n    get_key_summary,\n    get_env_key,\n    import_from_env\n)\n\n\nFunctions\ndef get_provider_info(\n    provider: str,  # Provider identifier\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; Dict[str, Any]:  # Provider info dict with defaults\n    \"Get provider information from config or generate defaults.\"\ndef format_provider_name(\n    provider: str,  # Provider identifier\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; str:  # Formatted provider name\n    \"Format provider name for display.\"\ndef format_key_age(\n    created_at: datetime  # When the key was created\n) -&gt; str:  # Human-readable age string\n    \"Format the age of a key for display.\"\ndef format_expiration(\n    expires_at: Optional[datetime]  # Expiration datetime\n) -&gt; str:  # Human-readable expiration string\n    \"Format expiration time for display.\"\ndef get_key_summary(\n    byok_manager,  # BYOK manager instance\n    request,  # FastHTML request\n    user_id: Optional[str] = None,  # Optional user ID\n    provider_config: Optional[Dict[str, Any]] = None  # Optional provider configuration\n) -&gt; Dict[str, Any]:  # Summary dictionary with provider info\n    \"Get a summary of all stored keys.\"\ndef get_env_key(\n    provider: str,  # Provider name\n    env_prefix: str = \"API_KEY_\"  # Environment variable prefix\n) -&gt; Optional[str]:  # API key from environment or None\n    \"Get an API key from environment variables.\"\ndef import_from_env(\n    byok_manager,  # BYOK manager instance\n    request,  # FastHTML request\n    providers: List[str],  # List of providers to check\n    user_id: Optional[str] = None,  # Optional user ID\n    env_prefix: str = \"API_KEY_\"  # Environment variable prefix\n) -&gt; Dict[str, bool]:  # Dict of provider: success status\n    \"Import API keys from environment variables.\"\n\n\n\nSecurity (security.ipynb)\n\nEncryption and security utilities for API key management\n\n\nImport\nfrom cjm_fasthtml_byok.core.security import (\n    generate_encryption_key,\n    get_or_create_app_key,\n    KeyEncryptor,\n    check_https,\n    validate_environment,\n    mask_key,\n    get_key_fingerprint\n)\n\n\nFunctions\ndef generate_encryption_key(\n    password: Optional[str] = None,  # Optional password to derive key from\n    salt: Optional[bytes] = None  # Optional salt for key derivation (required if password provided)\n) -&gt; bytes:  # 32-byte encryption key suitable for Fernet\n    \"Generate or derive an encryption key.\"\ndef get_or_create_app_key(\n    \"Get or create an app-specific encryption key derived from the app's secret key.\"\ndef check_https(\n    request  # FastHTML/Starlette request object\n) -&gt; bool:  # True if using HTTPS, False otherwise\n    \"Check if the request is using HTTPS.\"\ndef validate_environment(\n    request,  # FastHTML/Starlette request object\n    require_https: bool = True,  # Whether to require HTTPS\n    is_production: bool = None  # Whether running in production (auto-detected if None)\n) -&gt; None\n    \"Validate the security environment.\"\ndef mask_key(\n    key: str,  # The API key to mask\n    visible_chars: int = 4  # Number of characters to show at start and end\n) -&gt; str:  # Masked key like 'sk-a...xyz'\n    \"Mask an API key for display purposes.\"\ndef get_key_fingerprint(\n    key: str  # The API key\n) -&gt; str:  # SHA256 fingerprint of the key (first 16 chars)\n    \"Generate a fingerprint for an API key (for logging/tracking without exposing the key).\"\n\n\nClasses\nclass KeyEncryptor:\n    def __init__(\n        self,\n        encryption_key: Optional[bytes] = None  # Encryption key to use. If None, generates a new one\n    )\n    \"Handles encryption and decryption of API keys.\"\n    \n    def __init__(\n            self,\n            encryption_key: Optional[bytes] = None  # Encryption key to use. If None, generates a new one\n        )\n        \"Initialize the encryptor.\n\nArgs:\n    encryption_key: Encryption key to use. If None, generates a new one.\"\n    \n    def encrypt(\n            self,\n            value: str  # Plain text API key to encrypt\n        ) -&gt; bytes:  # Encrypted bytes\n        \"Encrypt an API key value.\n\nArgs:\n    value: Plain text API key\n\nReturns:\n    Encrypted bytes\n\nRaises:\n    EncryptionError: If encryption fails\"\n    \n    def decrypt(\n            self,\n            encrypted_value: bytes  # Encrypted bytes to decrypt\n        ) -&gt; str:  # Decrypted plain text API key\n        \"Decrypt an API key value.\n\nArgs:\n    encrypted_value: Encrypted bytes\n\nReturns:\n    Decrypted API key\n\nRaises:\n    EncryptionError: If decryption fails\"\n    \n    def rotate_key(\n            self,\n            new_key: bytes,  # New encryption key to use\n            encrypted_value: bytes  # Value encrypted with current key\n        ) -&gt; bytes:  # Value re-encrypted with new key\n        \"Re-encrypt a value with a new key.\n\nArgs:\n    new_key: New encryption key\n    encrypted_value: Value encrypted with current key\n\nReturns:\n    Value encrypted with new key\"\n\n\n\nStorage (storage.ipynb)\n\nStorage backends for API keys (session and database)\n\n\nImport\nfrom cjm_fasthtml_byok.core.storage import (\n    SessionStorage,\n    DatabaseStorage,\n    HybridStorage,\n    BYOKManager\n)\n\n\nClasses\nclass SessionStorage:\n    def __init__(\n        self,\n        config: BYOKConfig  # BYOK configuration object\n    )\n    \"\"\"\n    Session-based storage for API keys.\n    Keys are stored in the user's session and expire with the session.\n    \"\"\"\n    \n    def __init__(\n            self,\n            config: BYOKConfig  # BYOK configuration object\n        )\n        \"Initialize session storage with configuration\"\n    \n    def store(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            key: APIKey  # API key object to store\n        ) -&gt; None\n        \"Store an API key in the session\"\n    \n    def retrieve(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            provider: str,  # Provider name to retrieve key for\n            user_id: Optional[str] = None  # User ID (unused in session storage)\n        ) -&gt; Optional[APIKey]:  # API key object if found and valid, None otherwise\n        \"Retrieve an API key from the session\"\n    \n    def delete(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            provider: str,  # Provider name to delete key for\n            user_id: Optional[str] = None  # User ID (unused in session storage)\n        ) -&gt; None\n        \"Delete an API key from the session\"\n    \n    def list_providers(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            user_id: Optional[str] = None  # User ID (unused in session storage)\n        ) -&gt; List[str]:  # List of provider names with stored keys\n        \"List all providers with stored keys\"\n    \n    def clear_all(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            user_id: Optional[str] = None  # User ID (unused in session storage)\n        ) -&gt; None\n        \"Clear all API keys from the session\"\nclass DatabaseStorage:\n    def __init__(\n        self,\n        config: BYOKConfig,  # BYOK configuration object\n        db_url: str = \"sqlite:///byok_keys.db\"  # Database URL (defaults to SQLite)\n    )\n    \"\"\"\n    Database-backed storage for API keys using SQLAlchemy 2.0+.\n    Keys persist across sessions and devices.\n    \"\"\"\n    \n    def __init__(\n            self,\n            config: BYOKConfig,  # BYOK configuration object\n            db_url: str = \"sqlite:///byok_keys.db\"  # Database URL (defaults to SQLite)\n        )\n        \"Initialize database storage with SQLAlchemy.\"\n    \n    def store(\n            self,\n            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)\n            key: APIKey  # API key object to store in database\n        ) -&gt; None\n        \"Store an API key in the database\"\n    \n    def retrieve(\n            self,\n            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)\n            provider: str,  # Provider name to retrieve key for\n            user_id: Optional[str] = None  # User ID to retrieve key for (required for database)\n        ) -&gt; Optional[APIKey]:  # API key object if found and valid, None otherwise\n        \"Retrieve an API key from the database\"\n    \n    def delete(\n            self,\n            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)\n            provider: str,  # Provider name to delete key for\n            user_id: Optional[str] = None  # User ID to delete key for (required for database)\n        ) -&gt; None\n        \"Delete an API key from the database\"\n    \n    def list_providers(\n            self,\n            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)\n            user_id: Optional[str] = None  # User ID to list providers for (required for database)\n        ) -&gt; List[str]:  # List of provider names with stored keys\n        \"List all providers with stored keys for a user\"\n    \n    def clear_all(\n            self,\n            request: Any,  # FastHTML/Starlette request object (unused but kept for interface consistency)\n            user_id: Optional[str] = None  # User ID to clear keys for (required for database)\n        ) -&gt; None\n        \"Clear all API keys for a user\"\nclass HybridStorage:\n    def __init__(\n        self,\n        config: BYOKConfig,  # BYOK configuration object\n        db_url: Optional[str] = None  # Optional database URL for persistent storage\n    )\n    \"\"\"\n    Hybrid storage using both session and database.\n    Session acts as a cache, database provides persistence.\n    \"\"\"\n    \n    def __init__(\n            self,\n            config: BYOKConfig,  # BYOK configuration object\n            db_url: Optional[str] = None  # Optional database URL for persistent storage\n        )\n        \"Initialize hybrid storage with session and optional database backends\"\n    \n    def store(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            key: APIKey  # API key object to store\n        ) -&gt; None\n        \"Store in both session and database\"\n    \n    def retrieve(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            provider: str,  # Provider name to retrieve key for\n            user_id: Optional[str] = None  # User ID for database lookup\n        ) -&gt; Optional[APIKey]:  # API key object if found, None otherwise\n        \"Retrieve from session first, then database\"\n    \n    def delete(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            provider: str,  # Provider name to delete key for\n            user_id: Optional[str] = None  # User ID for database deletion\n        ) -&gt; None\n        \"Delete from both storages\"\n    \n    def list_providers(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            user_id: Optional[str] = None  # User ID for database lookup\n        ) -&gt; List[str]:  # Combined list of providers from both storages\n        \"List providers from both storages\"\n    \n    def clear_all(\n            self,\n            request: Any,  # FastHTML/Starlette request object with session\n            user_id: Optional[str] = None  # User ID for database clearing\n        ) -&gt; None\n        \"Clear from both storages\"\nclass BYOKManager:\n    def __init__(\n        self,\n        secret_key: str,  # Application secret key for encryption\n        db_url: Optional[str] = None,  # Optional database URL for persistent storage (e.g., \"sqlite:///keys.db\")\n        config: Optional[BYOKConfig] = None  # Optional configuration (uses defaults if not provided)\n    )\n    \"\"\"\n    Main manager for the BYOK system.\n    Handles encryption and storage coordination.\n    \"\"\"\n    \n    def __init__(\n            self,\n            secret_key: str,  # Application secret key for encryption\n            db_url: Optional[str] = None,  # Optional database URL for persistent storage (e.g., \"sqlite:///keys.db\")\n            config: Optional[BYOKConfig] = None  # Optional configuration (uses defaults if not provided)\n        )\n        \"Initialize the BYOK manager.\"\n    \n    def set_key(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name (e.g., 'openai', 'anthropic')\n            api_key: str,  # The API key to store\n            user_id: Optional[str] = None,  # Optional user ID for database storage\n            ttl: Optional[timedelta] = None  # Optional time-to-live for the key\n        ) -&gt; None\n        \"Store an API key.\"\n    \n    def get_key(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name\n            user_id: Optional[str] = None  # Optional user ID for database lookup\n        ) -&gt; Optional[str]:  # Decrypted API key or None if not found\n        \"Retrieve and decrypt an API key.\"\n    \n    def delete_key(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name\n            user_id: Optional[str] = None  # Optional user ID\n        ) -&gt; None\n        \"Delete an API key.\"\n    \n    def list_providers(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            user_id: Optional[str] = None  # Optional user ID\n        ) -&gt; List[str]:  # List of provider names\n        \"List all providers with stored keys.\"\n    \n    def clear_keys(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            user_id: Optional[str] = None  # Optional user ID\n        ) -&gt; None\n        \"Clear all stored API keys.\"\n    \n    def has_key(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name\n            user_id: Optional[str] = None  # Optional user ID\n        ) -&gt; bool:  # True if key exists, False otherwise\n        \"Check if a key exists for a provider.\"\n\n\n\nTypes (types.ipynb)\n\nType definitions and protocols for the BYOK system\n\n\nImport\nfrom cjm_fasthtml_byok.core.types import (\n    StorageBackend,\n    APIKey,\n    KeyStorage,\n    BYOKConfig,\n    UserAPIKey,\n    BYOKException,\n    EncryptionError,\n    StorageError,\n    KeyNotFoundError,\n    SecurityWarning\n)\n\n\nClasses\nclass StorageBackend(Enum):\n    \"Available storage backends for API keys\"\n@dataclass\nclass APIKey:\n    \"Represents an encrypted API key with metadata\"\n    \n    provider: str  # e.g., 'openai', 'anthropic', 'google'\n    encrypted_value: bytes  # Encrypted key value\n    created_at: datetime = field(...)\n    expires_at: Optional[datetime]\n    user_id: Optional[str]  # For database storage\n    \n    def is_expired(\n            self\n        ) -&gt; bool:  # True if key has expired, False otherwise\n        \"Check if the key has expired\"\n    \n    def to_dict(\n            self\n        ) -&gt; Dict[str, Any]:  # Dictionary representation for serialization\n        \"Convert to dictionary for storage\"\n    \n    def from_dict(\n            cls,  # The APIKey class\n            data: Dict[str, Any]  # Dictionary containing serialized key data\n        ) -&gt; 'APIKey':  # Reconstructed APIKey instance\n        \"Create from dictionary\"\n@runtime_checkable\nclass KeyStorage(Protocol):\n    \"Protocol for key storage implementations\"\n    \n    def store(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            key: APIKey  # API key object to store\n        ) -&gt; None\n        \"Store an API key\"\n    \n    def retrieve(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name to retrieve key for\n            user_id: Optional[str] = None  # Optional user ID for database lookup\n        ) -&gt; Optional[APIKey]:  # API key object if found, None otherwise\n        \"Retrieve an API key for a provider\"\n    \n    def delete(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            provider: str,  # Provider name to delete key for\n            user_id: Optional[str] = None  # Optional user ID for database deletion\n        ) -&gt; None\n        \"Delete an API key\"\n    \n    def list_providers(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            user_id: Optional[str] = None  # Optional user ID for database lookup\n        ) -&gt; list[str]:  # List of provider names with stored keys\n        \"List all stored providers\"\n    \n    def clear_all(\n            self,\n            request: Any,  # FastHTML/Starlette request object\n            user_id: Optional[str] = None  # Optional user ID for database clearing\n        ) -&gt; None\n        \"Clear all stored keys\"\n@dataclass\nclass BYOKConfig:\n    \"Configuration for the BYOK system\"\n    \n    storage_backend: StorageBackend = StorageBackend.SESSION\n    encryption_key: Optional[bytes]  # If None, will be generated\n    default_ttl: Optional[timedelta] = timedelta(hours=24)  # Default key expiration\n    session_key_prefix: str = 'byok_'  # Prefix for session storage keys\n    db_table_name: str = 'user_api_keys'  # Database table name\n    auto_cleanup: bool = True  # Auto-cleanup expired keys\n    require_https: bool = True  # Warn if not using HTTPS in production\nclass UserAPIKey:\n    \"Database schema for persistent API key storage (for use with fastsql)\"\nclass BYOKException(Exception):\n    \"Base exception for BYOK errors\"\nclass EncryptionError(BYOKException):\n    \"Error during encryption/decryption\"\nclass StorageError(BYOKException):\n    \"Error during storage operations\"\nclass KeyNotFoundError(BYOKException):\n    \"Requested key not found\"\nclass SecurityWarning(BYOKException):\n    \"Security-related warning\"",
+    "crumbs": [
+      "cjm-fasthtml-byok"
+    ]
+  },
+  {
+    "objectID": "core/security.html",
+    "href": "core/security.html",
+    "title": "Security",
+    "section": "",
+    "text": "source\n\n\n\n generate_encryption_key (password:Optional[str]=None,\n                          salt:Optional[bytes]=None)\n\nGenerate or derive an encryption key.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\npassword\nOptional\nNone\nOptional password to derive key from\n\n\nsalt\nOptional\nNone\nOptional salt for key derivation (required if password provided)\n\n\nReturns\nbytes\n\n32-byte encryption key suitable for Fernet\n\n\n\n\nsource\n\n\n\n\n get_or_create_app_key (secret_key:str)\n\nGet or create an app-specific encryption key derived from the app’s secret key.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\nsecret_key\nstr\nThe application’s secret key (from FastHTML app config)\n\n\nReturns\nbytes\nEncryption key for the app",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  },
+  {
+    "objectID": "core/security.html#key-generation",
+    "href": "core/security.html#key-generation",
+    "title": "Security",
+    "section": "",
+    "text": "source\n\n\n\n generate_encryption_key (password:Optional[str]=None,\n                          salt:Optional[bytes]=None)\n\nGenerate or derive an encryption key.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\npassword\nOptional\nNone\nOptional password to derive key from\n\n\nsalt\nOptional\nNone\nOptional salt for key derivation (required if password provided)\n\n\nReturns\nbytes\n\n32-byte encryption key suitable for Fernet\n\n\n\n\nsource\n\n\n\n\n get_or_create_app_key (secret_key:str)\n\nGet or create an app-specific encryption key derived from the app’s secret key.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\nsecret_key\nstr\nThe application’s secret key (from FastHTML app config)\n\n\nReturns\nbytes\nEncryption key for the app",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  },
+  {
+    "objectID": "core/security.html#encryptiondecryption",
+    "href": "core/security.html#encryptiondecryption",
+    "title": "Security",
+    "section": "Encryption/Decryption",
+    "text": "Encryption/Decryption\n\nsource\n\nKeyEncryptor\n\n KeyEncryptor (encryption_key:Optional[bytes]=None)\n\nHandles encryption and decryption of API keys.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nencryption_key\nOptional\nNone\nEncryption key to use. If None, generates a new one",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  },
+  {
+    "objectID": "core/security.html#security-checks",
+    "href": "core/security.html#security-checks",
+    "title": "Security",
+    "section": "Security Checks",
+    "text": "Security Checks\n\nsource\n\ncheck_https\n\n check_https (request)\n\nCheck if the request is using HTTPS.\n\n\n\n\nType\nDetails\n\n\n\n\nrequest\n\nFastHTML/Starlette request object\n\n\nReturns\nbool\nTrue if using HTTPS, False otherwise\n\n\n\n\nsource\n\n\nvalidate_environment\n\n validate_environment (request, require_https:bool=True,\n                       is_production:bool=None)\n\nValidate the security environment.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nrequest\n\n\nFastHTML/Starlette request object\n\n\nrequire_https\nbool\nTrue\nWhether to require HTTPS\n\n\nis_production\nbool\nNone\nWhether running in production (auto-detected if None)\n\n\nReturns\nNone\n\n\n\n\n\n\nsource\n\n\nmask_key\n\n mask_key (key:str, visible_chars:int=4)\n\nMask an API key for display purposes.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nkey\nstr\n\nThe API key to mask\n\n\nvisible_chars\nint\n4\nNumber of characters to show at start and end\n\n\nReturns\nstr\n\nMasked key like ‘sk-a…xyz’",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  },
+  {
+    "objectID": "core/security.html#key-fingerprinting",
+    "href": "core/security.html#key-fingerprinting",
+    "title": "Security",
+    "section": "Key Fingerprinting",
+    "text": "Key Fingerprinting\n\nsource\n\nget_key_fingerprint\n\n get_key_fingerprint (key:str)\n\nGenerate a fingerprint for an API key (for logging/tracking without exposing the key).\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\nkey\nstr\nThe API key\n\n\nReturns\nstr\nSHA256 fingerprint of the key (first 16 chars)",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  },
+  {
+    "objectID": "core/security.html#tests",
+    "href": "core/security.html#tests",
+    "title": "Security",
+    "section": "Tests",
+    "text": "Tests\n\n# Test encryption/decryption\nencryptor = KeyEncryptor()\ntest_key = \"sk-1234567890abcdef\"\nencrypted = encryptor.encrypt(test_key)\ndecrypted = encryptor.decrypt(encrypted)\nassert decrypted == test_key\nprint(f\"✓ Encryption/decryption working\")\n\n# Test key masking\nmasked = mask_key(\"sk-1234567890abcdef\")\nassert masked == \"sk-1...cdef\"\nprint(f\"✓ Key masking: {masked}\")\n\n# Test fingerprinting\nfp1 = get_key_fingerprint(\"test-key-1\")\nfp2 = get_key_fingerprint(\"test-key-2\")\nassert fp1 != fp2\nassert len(fp1) == 16\nprint(f\"✓ Fingerprinting: {fp1}\")\n\n✓ Encryption/decryption working\n✓ Key masking: sk-1...cdef\n✓ Fingerprinting: 1255558df586ae27",
+    "crumbs": [
+      "core",
+      "Security"
+    ]
+  }
+]
